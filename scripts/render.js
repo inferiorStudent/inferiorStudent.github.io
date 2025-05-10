@@ -1,5 +1,5 @@
 const notes = [
-    { title: "数学笔记", path: "notes/math.md"  },
+    { title: "数学笔记", path: "notes/math_analysis.md"  },
     { title: "编程笔记", path: "notes/coding.md"  }
 ];
 
