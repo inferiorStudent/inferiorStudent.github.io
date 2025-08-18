@@ -1,0 +1,88 @@
+/* 主页卡片布局和样式 */
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .card {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-decoration: none;
+    color: #333;
+    padding: 20px;
+    display: block;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  }
+  
+  .card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .card-excerpt {
+    font-size: 1rem;
+    color: #666;
+  }
+
+  /* 笔记页面布局 */
+.post-layout {
+  display: flex;
+  gap: 30px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.sidebar-toc {
+  width: 250px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 20px; /* 固定在顶部，方便滚动 */
+  height: fit-content;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  overflow-y: auto;
+}
+
+.markdown-body {
+  flex-grow: 1;
+  min-width: 0;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* 导航栏样式 */
+.sidebar-toc ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar-toc li a {
+  display: block;
+  padding: 5px 0;
+  color: #555;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.sidebar-toc li a:hover {
+  color: #007bff;
+}
+
+/* 确保markdown-body中的标题有ID，方便跳转 */
+.markdown-body h1, .markdown-body h2, .markdown-body h3 {
+  scroll-margin-top: 80px; /* 滚动时留出顶部间隙 */
+}
