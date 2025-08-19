@@ -14,9 +14,7 @@
           }
         });
     </script>
-<!-- hexo injector head_end start -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
-<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+<meta name="generator" content="Hexo 7.3.0"></head>
 <body>
     <div class="container">
         <header class="post-navbar">
@@ -64,12 +62,12 @@
                         <div class="details-content">
                             <ul>
                                 
-                                    <li class="sidebar-item active">
-                                        <a href="/2025/08/19/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/">评价指标</a>
-                                    </li>
-                                
                                     <li class="sidebar-item ">
                                         <a href="/2025/08/19/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E6%96%B9%E6%B3%95/">统计学方法</a>
+                                    </li>
+                                
+                                    <li class="sidebar-item active">
+                                        <a href="/2025/08/19/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/">评价指标</a>
                                     </li>
                                 
                             </ul>
@@ -89,7 +87,8 @@
         </time>
     </div>
     <div class="post-body">
-        <h2 id="1-回归模型评价指标"><a href="#1-回归模型评价指标" class="headerlink" title="1 回归模型评价指标"></a>1 回归模型评价指标</h2><table>
+        <h2 id="1-回归模型评价指标">1 回归模型评价指标</h2>
+<table>
 <thead>
 <tr>
 <th>指标</th>
@@ -97,93 +96,97 @@
 <th>公式</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>均方误差</td>
 <td><strong>M</strong>ean <strong>S</strong>quared <strong>E</strong>rror</td>
-<td>$\displaystyle MSE&#x3D;\frac{1}{n}\sum^{n}_{i&#x3D;1}(y_i-\hat{y}_i)^2$</td>
+<td>$\displaystyle MSE=\frac{1}{n}\sum^{n}_{i=1}(y_i-\hat{y}_i)^2$</td>
 </tr>
 <tr>
 <td>均方根误差</td>
 <td><strong>R</strong>ooted <strong>MSE</strong></td>
-<td>$\displaystyle RMSE&#x3D;\sqrt{MSE}$</td>
+<td>$\displaystyle RMSE=\sqrt{MSE}$</td>
 </tr>
 <tr>
 <td>平均绝对误差</td>
 <td><strong>M</strong>ean <strong>A</strong>bsolute <strong>E</strong>rror</td>
-<td>$\displaystyle MAE&#x3D;\frac{1}{n}\sum_{i&#x3D;1}^n\left|y_i-\hat{y}_i\right|$</td>
+<td>$\displaystyle MAE=\frac{1}{n}\sum_{i=1}^n\left|y_i-\hat{y}_i\right|$</td>
 </tr>
 <tr>
 <td>决定系数$R^2$</td>
 <td>R-Square，越小，拟合效果越差</td>
-<td>$\displaystyle R^2&#x3D;1-\frac{\sum_i(y_i-\hat{y}_i)^2}{\sum_i(y_i-\bar{y}_i)^2}$</td>
+<td>$\displaystyle R^2=1-\frac{\sum_i(y_i-\hat{y}_i)^2}{\sum_i(y_i-\bar{y}_i)^2}$</td>
 </tr>
 <tr>
 <td>校正决定系数</td>
 <td>Adjusted R-Square</td>
 <td>$\displaystyle 1-\frac{(1-R^2)(n-1)}{n-p-1}$, 其中$n$是样本数量, $p$是特征数量</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> sklearn.metrics <span class="hljs-keyword">import</span> mean_squared_error, mean_absolute_error, r2_score<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><br>MSE = mean_squared_error(y_test, y_predict)<br></code></pre></td></tr></table></figure>
-
-
-
-<h2 id="2-分类模型评价指标"><a href="#2-分类模型评价指标" class="headerlink" title="2 分类模型评价指标"></a>2 分类模型评价指标</h2><ul>
+<h2 id="2-分类模型评价指标">2 分类模型评价指标</h2>
+<ul>
 <li>混淆矩阵，Confusion Matrix（可以是多分类）</li>
 </ul>
 <table>
 <thead>
 <tr>
-<th align="center"></th>
-<th align="center">实际正</th>
-<th align="center">实际负</th>
+<th style="text-align:center"></th>
+<th style="text-align:center">实际正</th>
+<th style="text-align:center">实际负</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center"><strong>预测正</strong></td>
-<td align="center">TP</td>
-<td align="center">FP</td>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>预测正</strong></td>
+<td style="text-align:center">TP</td>
+<td style="text-align:center">FP</td>
 </tr>
 <tr>
-<td align="center"><strong>预测负</strong></td>
-<td align="center">FN</td>
-<td align="center">TN</td>
+<td style="text-align:center"><strong>预测负</strong></td>
+<td style="text-align:center">FN</td>
+<td style="text-align:center">TN</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>实际分True和False，机器猜Positive和Negative。实际为True，机器猜Positive，便为TP；实际为False，机器猜Negative，那么就是TN（T表示猜对了，N表示机器预测为负样本）。</p>
 <ul>
-<li><p><strong>准确率</strong>，Accuracy</p>
+<li>
+<p><strong>准确率</strong>，Accuracy</p>
 <ul>
 <li>机器<strong>预测对</strong>的样本中占总样本的比例：$\displaystyle \frac{TP+TN}{TP+FP+FN+TN}$​.</li>
 <li>正负样本比例失衡的情况下，不能作为很好的衡量指标</li>
 </ul>
 </li>
-<li><p><strong>精准率</strong>，Precision（<mark>查准率</mark>）</p>
+<li>
+<p><strong>精准率</strong>，Precision（<mark>查准率</mark>）</p>
 <ul>
 <li>被预测为Positive样本中，机器猜对的比例：$\displaystyle \frac{TP}{TP+FP}$.</li>
 </ul>
 </li>
-<li><p><strong>召回率</strong>，Recall（<mark>查全率</mark>）</p>
+<li>
+<p><strong>召回率</strong>，Recall（<mark>查全率</mark>）</p>
 <ul>
 <li>实际正样本中，机器猜对的比例：$\displaystyle \frac{TP}{TP+FN}$​.</li>
 <li>更关心负样本。召回率越高，负样本被预测出来的概率越高：宁可错杀一千，也不放过一个。</li>
 </ul>
 </li>
-<li><p><strong>F1分数</strong></p>
+<li>
+<p><strong>F1分数</strong></p>
 <ul>
-<li>$\displaystyle F1_{score}&#x3D;\frac{2}{\frac{1}{查准率}+\frac{1}{查全率}}$.</li>
+<li>$\displaystyle F1_{score}=\frac{2}{\frac{1}{查准率}+\frac{1}{查全率}}$.</li>
 </ul>
 </li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> sklearn.metrics <span class="hljs-keyword">import</span> accuracy_score, precision_score, recall_score, f1_score<br><br>y_pred = [<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>]<br>y_actual = [<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>]<br><br><span class="hljs-comment"># torch.from_numpy(np.array(...))</span><br></code></pre></td></tr></table></figure>
-
-
-
-<h2 id="3-协方差矩阵"><a href="#3-协方差矩阵" class="headerlink" title="3 协方差矩阵"></a>3 协方差矩阵</h2><ul>
-<li>方差：$\displaystyle \sigma_x^2&#x3D;\frac{1}{n-1}\sum_{i&#x3D;1}^n(x_i-\bar{x})^2$.</li>
-<li>协方差：$\displaystyle \sigma(x,y)&#x3D;\frac{1}{n-1}\sum_{i&#x3D;1}^n(x_i-\bar{x})(y_i-\bar{y})$​.</li>
+<h2 id="3-协方差矩阵">3 协方差矩阵</h2>
+<ul>
+<li>方差：$\displaystyle \sigma_x^2=\frac{1}{n-1}\sum_{i=1}^n(x_i-\bar{x})^2$.</li>
+<li>协方差：$\displaystyle \sigma(x,y)=\frac{1}{n-1}\sum_{i=1}^n(x_i-\bar{x})(y_i-\bar{y})$​.</li>
 </ul>
 <blockquote>
-<p>给定$d$个随机变量$x_k~(k&#x3D;1,\cdots,d)$，每个随机变量对应的观测样本数量为$n$.</p>
+<p>给定$d$个随机变量$x_k~(k=1,\cdots,d)$，每个随机变量对应的观测样本数量为$n$.</p>
 <div>
 $$
 \displaystyle \Sigma=\left(\begin{matrix}
@@ -192,9 +195,9 @@ $$
 \sigma(x_d,x_1) & \cdots & \sigma(x_d,x_d)
 \end{matrix}\right).
 $$
-</div></blockquote>
+</div>
+</blockquote>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><br><span class="hljs-built_in">print</span>(np.cov([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>]))<br></code></pre></td></tr></table></figure>
-
 
     </div>
     <script>
@@ -243,6 +246,16 @@ $$
         });
     });
 </script>
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        }
+      };
+    </script>
+    <script id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+    </script>
   </article>
 </div>
     </div>
