@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>Hello World</title>
-    <url>/inferiorStudent.github.io/2025/08/18/%E6%A0%B7%E4%BE%8B%E7%AC%94%E8%AE%B0/hello-world/</url>
+    <url>/2025/08/18/%E6%A0%B7%E4%BE%8B%E7%AC%94%E8%AE%B0/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
 <h2 id="Quick-Start">Quick Start</h2>
 <h3 id="Create-a-new-post">Create a new post</h3>
@@ -25,7 +25,7 @@
   </entry>
   <entry>
     <title>矩阵</title>
-    <url>/inferiorStudent.github.io/2025/08/18/%E6%A0%B7%E4%BE%8B%E7%AC%94%E8%AE%B0/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0-%E7%9F%A9%E9%98%B5/</url>
+    <url>/2025/08/18/%E6%A0%B7%E4%BE%8B%E7%AC%94%E8%AE%B0/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0-%E7%9F%A9%E9%98%B5/</url>
     <content><![CDATA[<p>这是关于矩阵基础知识的笔记。</p>
 <h3 id="矩阵的定义">矩阵的定义</h3>
 <p>一个 $m \times n$ 的矩阵是一个由 $m$ 行和 $n$ 列元素排列成的矩形阵列。</p>
@@ -61,7 +61,7 @@ $$
   </entry>
   <entry>
     <title>统计学方法</title>
-    <url>/inferiorStudent.github.io/2025/08/19/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E6%96%B9%E6%B3%95/</url>
+    <url>/2025/08/19/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E6%96%B9%E6%B3%95/</url>
     <content><![CDATA[<h2 id="1-一元线性回归">1 一元线性回归</h2>
 <blockquote>
 <p>[!NOTE]</p>
@@ -106,7 +106,7 @@ $$<br>
   </entry>
   <entry>
     <title>评价指标</title>
-    <url>/inferiorStudent.github.io/2025/08/19/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/</url>
+    <url>/2025/08/19/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/</url>
     <content><![CDATA[<h2 id="1-回归模型评价指标">1 回归模型评价指标</h2>
 <table>
 <thead>
