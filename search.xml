@@ -4,18 +4,17 @@
     <title>Hello World</title>
     <url>/2025/08/18/%E6%A0%B7%E4%BE%8B%E7%AC%94%E8%AE%B0/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start">Quick Start</h2>
-<h3 id="Create-a-new-post">Create a new post</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure>
+
 <p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server">Run server</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo server<br></code></pre></td></tr></table></figure>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo server<br></code></pre></td></tr></table></figure>
+
 <p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files">Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo generate<br></code></pre></td></tr></table></figure>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo generate<br></code></pre></td></tr></table></figure>
+
 <p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites">Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo deploy<br></code></pre></td></tr></table></figure>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo deploy<br></code></pre></td></tr></table></figure>
+
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 ]]></content>
       <categories>
@@ -24,44 +23,114 @@
       </categories>
   </entry>
   <entry>
-    <title>统计学方法</title>
-    <url>/2025/08/19/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E6%96%B9%E6%B3%95/</url>
-    <content><![CDATA[<h2 id="1-一元线性回归">1 一元线性回归</h2>
+    <title>评价指标</title>
+    <url>/2025/08/19/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/</url>
+    <content><![CDATA[<h2 id="1-回归模型评价指标"><a href="#1-回归模型评价指标" class="headerlink" title="1 回归模型评价指标"></a>1 回归模型评价指标</h2><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>描述</th>
+<th>公式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>均方误差</td>
+<td><strong>M</strong>ean <strong>S</strong>quared <strong>E</strong>rror</td>
+<td>$\displaystyle MSE&#x3D;\frac{1}{n}\sum^{n}_{i&#x3D;1}(y_i-\hat{y}_i)^2$</td>
+</tr>
+<tr>
+<td>均方根误差</td>
+<td><strong>R</strong>ooted <strong>MSE</strong></td>
+<td>$\displaystyle RMSE&#x3D;\sqrt{MSE}$</td>
+</tr>
+<tr>
+<td>平均绝对误差</td>
+<td><strong>M</strong>ean <strong>A</strong>bsolute <strong>E</strong>rror</td>
+<td>$\displaystyle MAE&#x3D;\frac{1}{n}\sum_{i&#x3D;1}^n\left|y_i-\hat{y}_i\right|$</td>
+</tr>
+<tr>
+<td>决定系数$R^2$</td>
+<td>R-Square，越小，拟合效果越差</td>
+<td>$\displaystyle R^2&#x3D;1-\frac{\sum_i(y_i-\hat{y}_i)^2}{\sum_i(y_i-\bar{y}_i)^2}$</td>
+</tr>
+<tr>
+<td>校正决定系数</td>
+<td>Adjusted R-Square</td>
+<td>$\displaystyle 1-\frac{(1-R^2)(n-1)}{n-p-1}$, 其中$n$是样本数量, $p$是特征数量</td>
+</tr>
+</tbody></table>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> sklearn.metrics <span class="hljs-keyword">import</span> mean_squared_error, mean_absolute_error, r2_score<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><br>MSE = mean_squared_error(y_test, y_predict)<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-分类模型评价指标"><a href="#2-分类模型评价指标" class="headerlink" title="2 分类模型评价指标"></a>2 分类模型评价指标</h2><ul>
+<li>混淆矩阵，Confusion Matrix（可以是多分类）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">实际正</th>
+<th align="center">实际负</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>预测正</strong></td>
+<td align="center">TP</td>
+<td align="center">FP</td>
+</tr>
+<tr>
+<td align="center"><strong>预测负</strong></td>
+<td align="center">FN</td>
+<td align="center">TN</td>
+</tr>
+</tbody></table>
+<p>实际分True和False，机器猜Positive和Negative。实际为True，机器猜Positive，便为TP；实际为False，机器猜Negative，那么就是TN（T表示猜对了，N表示机器预测为负样本）。</p>
+<ul>
+<li><p><strong>准确率</strong>，Accuracy</p>
+<ul>
+<li>机器<strong>预测对</strong>的样本中占总样本的比例：$\displaystyle \frac{TP+TN}{TP+FP+FN+TN}$​.</li>
+<li>正负样本比例失衡的情况下，不能作为很好的衡量指标</li>
+</ul>
+</li>
+<li><p><strong>精准率</strong>，Precision（<mark>查准率</mark>）</p>
+<ul>
+<li>被预测为Positive样本中，机器猜对的比例：$\displaystyle \frac{TP}{TP+FP}$.</li>
+</ul>
+</li>
+<li><p><strong>召回率</strong>，Recall（<mark>查全率</mark>）</p>
+<ul>
+<li>实际正样本中，机器猜对的比例：$\displaystyle \frac{TP}{TP+FN}$​.</li>
+<li>更关心负样本。召回率越高，负样本被预测出来的概率越高：宁可错杀一千，也不放过一个。</li>
+</ul>
+</li>
+<li><p><strong>F1分数</strong></p>
+<ul>
+<li>$\displaystyle F1_{score}&#x3D;\frac{2}{\frac{1}{查准率}+\frac{1}{查全率}}$.</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> sklearn.metrics <span class="hljs-keyword">import</span> accuracy_score, precision_score, recall_score, f1_score<br><br>y_pred = [<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>]<br>y_actual = [<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>]<br><br><span class="hljs-comment"># torch.from_numpy(np.array(...))</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-协方差矩阵"><a href="#3-协方差矩阵" class="headerlink" title="3 协方差矩阵"></a>3 协方差矩阵</h2><ul>
+<li>方差：$\displaystyle \sigma_x^2&#x3D;\frac{1}{n-1}\sum_{i&#x3D;1}^n(x_i-\bar{x})^2$.</li>
+<li>协方差：$\displaystyle \sigma(x,y)&#x3D;\frac{1}{n-1}\sum_{i&#x3D;1}^n(x_i-\bar{x})(y_i-\bar{y})$​.</li>
+</ul>
 <blockquote>
-<p>[!NOTE]</p>
-<p>$X={x_1,x_2,\cdots,x_n},y={y_1,y_2,\cdots,y_n}$拟合为线性方程$\hat{y}=kx+b$. 其中<br>
-$$<br>
-k=…,b=…<br>
-$$</p>
-</blockquote>
-<p>【推导】每个点到这条直线的距离之和最小：求$\displaystyle \sum_{i=1}^n(y_i-\hat y_i)^2$的最小值，其中$\hat y_i=kx_i+b$ （预测值）.</p>
-<p>$k$和$b$是变量，对这两个分别求导（括号展开$k^2x_i^2+b^2+y_i^2-2kx_iy_i-2by_i+2kbx_i$）：<br>
-$$<br>
-\cancel2k\sum_{i=1}^nx_i^2-\cancel2\sum_{i=1}^nx_iy_i+\cancel2b\sum_{i=1}^nx_i=0,\<br>
-\cancel2nb-\cancel2\sum_{i=1}^ny_i+\cancel2k\sum_{i=1}^nx_i=0.(\Rightarrow<br>
-b-\bar y+k\bar x=0)<br>
-$$<br>
-由此解得<br>
-$$<br>
-k=\frac{n\sum x_iy_i-\sum x_i\sum y_i}{n\sum x^2_i-\left(\sum x_i\right)^2},\<br>
-b=\bar y-k\bar x.<br>
-$$</p>
-<blockquote>
-<p>[!INFO]</p>
-<p>说明是最小值点：因为距离之和可以是无穷大。</p>
-</blockquote>
-<h2 id="2-多元线性回归">2 多元线性回归</h2>
-<blockquote>
-<p>[!NOTE]</p>
-<p>$\hat{\boldsymbol{y}}=\boldsymbol X\boldsymbol k,~\boldsymbol k=(k_1,k_2,\cdots,k_n,b)^T,~\boldsymbol X=(\boldsymbol x_1,\cdots,\boldsymbol x_n,(1,\cdots,1)^T)$.</p>
-</blockquote>
-<p>【推导】均方误差$J(\boldsymbol{k})=(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{k})^T(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{k})$.<br>
-$$<br>
-\frac{\partial}{\partial\boldsymbol{k}}J(\boldsymbol{k})=-2\boldsymbol{X}^T(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{k})=0.<br>
-$$<br>
-▶ $(\boldsymbol{X}^T\boldsymbol{X})\boldsymbol{k}=\boldsymbol{X}^T\boldsymbol{y}$. 若$\boldsymbol{X}^T\boldsymbol{X}$是<strong>满秩</strong>的，那么就有唯一解；否则无穷多解。</p>
-<h3 id="2-1-岭回归">2.1 岭回归</h3>
-<h3 id="2-2-Elastic-Net">2.2 Elastic Net</h3>
+<p>给定$d$个随机变量$x_k~(k&#x3D;1,\cdots,d)$，每个随机变量对应的观测样本数量为$n$.</p>
+<div>
+$$
+\displaystyle \Sigma=\left(\begin{matrix}
+\sigma(x_1,x_1) & \cdots & \sigma(x_1,x_d) \\
+\vdots & & \vdots \\
+\sigma(x_d,x_1) & \cdots & \sigma(x_d,x_d)
+\end{matrix}\right).
+$$
+</div></blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><br><span class="hljs-built_in">print</span>(np.cov([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>]))<br></code></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>深度学习</category>
@@ -72,8 +141,7 @@ $$<br>
     <title>矩阵</title>
     <url>/2025/08/18/%E6%A0%B7%E4%BE%8B%E7%AC%94%E8%AE%B0/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0-%E7%9F%A9%E9%98%B5/</url>
     <content><![CDATA[<p>这是关于矩阵基础知识的笔记。</p>
-<h3 id="矩阵的定义">矩阵的定义</h3>
-<p>一个 $m \times n$ 的矩阵是一个由 $m$ 行和 $n$ 列元素排列成的矩形阵列。</p>
+<h3 id="矩阵的定义"><a href="#矩阵的定义" class="headerlink" title="矩阵的定义"></a>矩阵的定义</h3><p>一个 $m \times n$ 的矩阵是一个由 $m$ 行和 $n$ 列元素排列成的矩形阵列。</p>
 <div>
 $$
 A = \begin{pmatrix}
@@ -84,19 +152,18 @@ a_{m1} & a_{m2} & \cdots & a_{mn}
 \end{pmatrix}
 $$
 </div>
-<h3 id="矩阵加法">矩阵加法</h3>
-<p>两个矩阵相加，要求它们的维度相同。</p>
-<p>$$ C = A + B \implies c_{ij} = a_{ij} + b_{ij} $$</p>
+
+<h3 id="矩阵加法"><a href="#矩阵加法" class="headerlink" title="矩阵加法"></a>矩阵加法</h3><p>两个矩阵相加，要求它们的维度相同。</p>
+<p>$$ C &#x3D; A + B \implies c_{ij} &#x3D; a_{ij} + b_{ij} $$</p>
 <p>$$ \frac{1}{2} $$</p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
 <p>这只是一个示例，你可以添加更多内容。</p>
 <blockquote>
-<p>[!DANGER]<br>
-这是危险或错误信息，用于表示严重问题或禁止操作。</p>
+<p>[!DANGER]<br>这是危险或错误信息，用于表示严重问题或禁止操作。</p>
 </blockquote>
 <blockquote>
-<p>[!WARNING]<br>
-这是需要引起注意的警告信息，通常用于强调潜在风险。</p>
+<p>[!WARNING]<br>这是需要引起注意的警告信息，通常用于强调潜在风险。</p>
 </blockquote>
 ]]></content>
       <categories>
@@ -105,120 +172,24 @@ $$
       </categories>
   </entry>
   <entry>
-    <title>评价指标</title>
-    <url>/2025/08/19/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/</url>
-    <content><![CDATA[<h2 id="1-回归模型评价指标">1 回归模型评价指标</h2>
-<table>
-<thead>
-<tr>
-<th>指标</th>
-<th>描述</th>
-<th>公式</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>均方误差</td>
-<td><strong>M</strong>ean <strong>S</strong>quared <strong>E</strong>rror</td>
-<td>$\displaystyle MSE=\frac{1}{n}\sum^{n}_{i=1}(y_i-\hat{y}_i)^2$</td>
-</tr>
-<tr>
-<td>均方根误差</td>
-<td><strong>R</strong>ooted <strong>MSE</strong></td>
-<td>$\displaystyle RMSE=\sqrt{MSE}$</td>
-</tr>
-<tr>
-<td>平均绝对误差</td>
-<td><strong>M</strong>ean <strong>A</strong>bsolute <strong>E</strong>rror</td>
-<td>$\displaystyle MAE=\frac{1}{n}\sum_{i=1}^n\left|y_i-\hat{y}_i\right|$</td>
-</tr>
-<tr>
-<td>决定系数$R^2$</td>
-<td>R-Square，越小，拟合效果越差</td>
-<td>$\displaystyle R^2=1-\frac{\sum_i(y_i-\hat{y}_i)^2}{\sum_i(y_i-\bar{y}_i)^2}$</td>
-</tr>
-<tr>
-<td>校正决定系数</td>
-<td>Adjusted R-Square</td>
-<td>$\displaystyle 1-\frac{(1-R^2)(n-1)}{n-p-1}$, 其中$n$是样本数量, $p$是特征数量</td>
-</tr>
-</tbody>
-</table>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> sklearn.metrics <span class="hljs-keyword">import</span> mean_squared_error, mean_absolute_error, r2_score<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><br>MSE = mean_squared_error(y_test, y_predict)<br></code></pre></td></tr></table></figure>
-<h2 id="2-分类模型评价指标">2 分类模型评价指标</h2>
-<ul>
-<li>混淆矩阵，Confusion Matrix（可以是多分类）</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th style="text-align:center"></th>
-<th style="text-align:center">实际正</th>
-<th style="text-align:center">实际负</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><strong>预测正</strong></td>
-<td style="text-align:center">TP</td>
-<td style="text-align:center">FP</td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>预测负</strong></td>
-<td style="text-align:center">FN</td>
-<td style="text-align:center">TN</td>
-</tr>
-</tbody>
-</table>
-<p>实际分True和False，机器猜Positive和Negative。实际为True，机器猜Positive，便为TP；实际为False，机器猜Negative，那么就是TN（T表示猜对了，N表示机器预测为负样本）。</p>
-<ul>
-<li>
-<p><strong>准确率</strong>，Accuracy</p>
-<ul>
-<li>机器<strong>预测对</strong>的样本中占总样本的比例：$\displaystyle \frac{TP+TN}{TP+FP+FN+TN}$​.</li>
-<li>正负样本比例失衡的情况下，不能作为很好的衡量指标</li>
-</ul>
-</li>
-<li>
-<p><strong>精准率</strong>，Precision（<mark>查准率</mark>）</p>
-<ul>
-<li>被预测为Positive样本中，机器猜对的比例：$\displaystyle \frac{TP}{TP+FP}$.</li>
-</ul>
-</li>
-<li>
-<p><strong>召回率</strong>，Recall（<mark>查全率</mark>）</p>
-<ul>
-<li>实际正样本中，机器猜对的比例：$\displaystyle \frac{TP}{TP+FN}$​.</li>
-<li>更关心负样本。召回率越高，负样本被预测出来的概率越高：宁可错杀一千，也不放过一个。</li>
-</ul>
-</li>
-<li>
-<p><strong>F1分数</strong></p>
-<ul>
-<li>$\displaystyle F1_{score}=\frac{2}{\frac{1}{查准率}+\frac{1}{查全率}}$.</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> sklearn.metrics <span class="hljs-keyword">import</span> accuracy_score, precision_score, recall_score, f1_score<br><br>y_pred = [<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>]<br>y_actual = [<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>]<br><br><span class="hljs-comment"># torch.from_numpy(np.array(...))</span><br></code></pre></td></tr></table></figure>
-<h2 id="3-协方差矩阵">3 协方差矩阵</h2>
-<ul>
-<li>方差：$\displaystyle \sigma_x^2=\frac{1}{n-1}\sum_{i=1}^n(x_i-\bar{x})^2$.</li>
-<li>协方差：$\displaystyle \sigma(x,y)=\frac{1}{n-1}\sum_{i=1}^n(x_i-\bar{x})(y_i-\bar{y})$​.</li>
-</ul>
-<blockquote>
-<p>给定$d$个随机变量$x_k~(k=1,\cdots,d)$，每个随机变量对应的观测样本数量为$n$.</p>
-<div>
-$$
-\displaystyle \Sigma=\left(\begin{matrix}
-\sigma(x_1,x_1) & \cdots & \sigma(x_1,x_d) \\
-\vdots & & \vdots \\
-\sigma(x_d,x_1) & \cdots & \sigma(x_d,x_d)
-\end{matrix}\right).
-$$
-</div>
+    <title>统计学方法</title>
+    <url>/2025/08/19/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<h2 id="1-一元线性回归"><a href="#1-一元线性回归" class="headerlink" title="1 一元线性回归"></a>1 一元线性回归</h2><blockquote>
+<p>[!NOTE]</p>
+<p>$X&#x3D;{x_1,x_2,\cdots,x_n},y&#x3D;{y_1,y_2,\cdots,y_n}$拟合为线性方程$\hat{y}&#x3D;kx+b$. 其中<br>$$<br>k&#x3D;…,b&#x3D;…<br>$$</p>
 </blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><br><span class="hljs-built_in">print</span>(np.cov([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>]))<br></code></pre></td></tr></table></figure>
-]]></content>
+<p>【推导】每个点到这条直线的距离之和最小：求$\displaystyle \sum_{i&#x3D;1}^n(y_i-\hat y_i)^2$的最小值，其中$\hat y_i&#x3D;kx_i+b$ （预测值）.</p>
+<p>$k$和$b$是变量，对这两个分别求导（括号展开$k^2x_i^2+b^2+y_i^2-2kx_iy_i-2by_i+2kbx_i$）：<br>$$<br>\cancel2k\sum_{i&#x3D;1}^nx_i^2-\cancel2\sum_{i&#x3D;1}^nx_iy_i+\cancel2b\sum_{i&#x3D;1}^nx_i&#x3D;0,\<br>\cancel2nb-\cancel2\sum_{i&#x3D;1}^ny_i+\cancel2k\sum_{i&#x3D;1}^nx_i&#x3D;0.(\Rightarrow<br>b-\bar y+k\bar x&#x3D;0)<br>$$<br>由此解得<br>$$<br>k&#x3D;\frac{n\sum x_iy_i-\sum x_i\sum y_i}{n\sum x^2_i-\left(\sum x_i\right)^2},\<br>b&#x3D;\bar y-k\bar x.<br>$$</p>
+<blockquote>
+<p>[!INFO]</p>
+<p>说明是最小值点：因为距离之和可以是无穷大。</p>
+</blockquote>
+<h2 id="2-多元线性回归"><a href="#2-多元线性回归" class="headerlink" title="2 多元线性回归"></a>2 多元线性回归</h2><blockquote>
+<p>[!NOTE]</p>
+<p>$\hat{\boldsymbol{y}}&#x3D;\boldsymbol X\boldsymbol k,<del>\boldsymbol k&#x3D;(k_1,k_2,\cdots,k_n,b)^T,</del>\boldsymbol X&#x3D;(\boldsymbol x_1,\cdots,\boldsymbol x_n,(1,\cdots,1)^T)$.</p>
+</blockquote>
+<p>【推导】均方误差$J(\boldsymbol{k})&#x3D;(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{k})^T(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{k})$.<br>$$<br>\frac{\partial}{\partial\boldsymbol{k}}J(\boldsymbol{k})&#x3D;-2\boldsymbol{X}^T(\boldsymbol{y}-\boldsymbol{X}\boldsymbol{k})&#x3D;0.<br>$$<br>▶ $(\boldsymbol{X}^T\boldsymbol{X})\boldsymbol{k}&#x3D;\boldsymbol{X}^T\boldsymbol{y}$. 若$\boldsymbol{X}^T\boldsymbol{X}$是<strong>满秩</strong>的，那么就有唯一解；否则无穷多解。</p>
+<h3 id="2-1-岭回归"><a href="#2-1-岭回归" class="headerlink" title="2.1 岭回归"></a>2.1 岭回归</h3><h3 id="2-2-Elastic-Net"><a href="#2-2-Elastic-Net" class="headerlink" title="2.2 Elastic Net"></a>2.2 Elastic Net</h3>]]></content>
       <categories>
         <category>深度学习</category>
         <category>第一章：机器学习</category>

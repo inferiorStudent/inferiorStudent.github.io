@@ -14,7 +14,9 @@
           }
         });
     </script>
-<meta name="generator" content="Hexo 7.3.0"></head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
 <body>
     <div class="container">
         <header class="post-navbar">
@@ -102,8 +104,7 @@
     </div>
     <div class="post-body">
         <p>这是关于矩阵基础知识的笔记。</p>
-<h3 id="矩阵的定义">矩阵的定义</h3>
-<p>一个 $m \times n$ 的矩阵是一个由 $m$ 行和 $n$ 列元素排列成的矩形阵列。</p>
+<h3 id="矩阵的定义"><a href="#矩阵的定义" class="headerlink" title="矩阵的定义"></a>矩阵的定义</h3><p>一个 $m \times n$ 的矩阵是一个由 $m$ 行和 $n$ 列元素排列成的矩形阵列。</p>
 <div>
 $$
 A = \begin{pmatrix}
@@ -114,19 +115,18 @@ a_{m1} & a_{m2} & \cdots & a_{mn}
 \end{pmatrix}
 $$
 </div>
-<h3 id="矩阵加法">矩阵加法</h3>
-<p>两个矩阵相加，要求它们的维度相同。</p>
-<p>$$ C = A + B \implies c_{ij} = a_{ij} + b_{ij} $$</p>
+
+<h3 id="矩阵加法"><a href="#矩阵加法" class="headerlink" title="矩阵加法"></a>矩阵加法</h3><p>两个矩阵相加，要求它们的维度相同。</p>
+<p>$$ C &#x3D; A + B \implies c_{ij} &#x3D; a_{ij} + b_{ij} $$</p>
 <p>$$ \frac{1}{2} $$</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
 <p>这只是一个示例，你可以添加更多内容。</p>
 <blockquote>
-<p>[!DANGER]<br>
-这是危险或错误信息，用于表示严重问题或禁止操作。</p>
+<p>[!DANGER]<br>这是危险或错误信息，用于表示严重问题或禁止操作。</p>
 </blockquote>
 <blockquote>
-<p>[!WARNING]<br>
-这是需要引起注意的警告信息，通常用于强调潜在风险。</p>
+<p>[!WARNING]<br>这是需要引起注意的警告信息，通常用于强调潜在风险。</p>
 </blockquote>
 
     </div>
