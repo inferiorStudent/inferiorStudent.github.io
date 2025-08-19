@@ -12,7 +12,6 @@
 .post-body blockquote[data-alert-type="note"] {
   border-left-color: #007bff;
   background-color: #e7f5ff;
-  color: #0056b3;
 }
 .post-body blockquote[data-alert-type="note"]::before {
   content: "💡 Note";
@@ -23,7 +22,6 @@
 .post-body blockquote[data-alert-type="warning"] {
   border-left-color: #ffc107;
   background-color: #fff3cd;
-  color: #856404;
 }
 .post-body blockquote[data-alert-type="warning"]::before {
   content: "⚠️ Warning";
@@ -34,11 +32,20 @@
 .post-body blockquote[data-alert-type="danger"] {
   border-left-color: #dc3545;
   background-color: #f8d7da;
-  color: #721c24;
 }
 .post-body blockquote[data-alert-type="danger"]::before {
   content: "❗ Danger";
   font-weight: bold;
   margin-right: 10px;
   color: #721c24;
+}
+.post-body blockquote[data-alert-type="info"] {
+  border-left-color: #b035dc;
+  background-color: #f5d7f8;
+}
+.post-body blockquote[data-alert-type="info"]::before {
+  content: "⭐ INFO";
+  font-weight: bold;
+  margin-right: 10px;
+  color: #4a1c72;
 }

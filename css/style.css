@@ -222,27 +222,29 @@ a:hover {
 }
 .sidebar-group summary {
   font-weight: bold;
-  padding: 8px 12px;
+  padding: 8px 6px;
   cursor: pointer;
   list-style: none; /* 移除默认三角 */
   position: relative;
+  display: flex;
+  align-items: center;
 }
 .sidebar-group summary::-webkit-details-marker {
   display: none;
 }
-.sidebar-group summary::before {
-  content: '›';
-  position: absolute;
-  left: 0;
+.sidebar-group .sidebar-arrow {
   transform: rotate(0deg);
-  transition: transform 0.3s;
+  transition: transform 0.3s ease;
+  margin-right: 5px;
+  flex-shrink: 0;
 }
-.sidebar-group[open] > summary::before {
+.sidebar-group details[open] > summary .sidebar-arrow {
   transform: rotate(90deg);
 }
 .sidebar-item {
   margin: 0;
   padding: 0;
+  list-style: none;
 }
 .sidebar-item a {
   display: block;
@@ -293,6 +295,25 @@ a:hover {
   width: 100%;
   -webkit-overflow-scrolling: touch;
 }
+.post-body table:not(.highlight) {
+  width: 100%;
+  border-collapse: collapse; /* 合并单元格边框 */
+  margin: 20px 0;
+  font-size: 0.9em;
+}
+.post-body table:not(.highlight) th,
+.post-body table:not(.highlight) td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+.post-body table:not(.highlight) th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+.post-body table:not(.highlight) tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
 .post-body blockquote {
   margin: 1em 0;
   padding: 15px 20px;
@@ -307,7 +328,6 @@ a:hover {
 .post-body blockquote[data-alert-type="note"] {
   border-left-color: #007bff;
   background-color: #e7f5ff;
-  color: #0056b3;
 }
 .post-body blockquote[data-alert-type="note"]::before {
   content: "💡 Note";
@@ -318,7 +338,6 @@ a:hover {
 .post-body blockquote[data-alert-type="warning"] {
   border-left-color: #ffc107;
   background-color: #fff3cd;
-  color: #856404;
 }
 .post-body blockquote[data-alert-type="warning"]::before {
   content: "⚠️ Warning";
@@ -329,13 +348,22 @@ a:hover {
 .post-body blockquote[data-alert-type="danger"] {
   border-left-color: #dc3545;
   background-color: #f8d7da;
-  color: #721c24;
 }
 .post-body blockquote[data-alert-type="danger"]::before {
   content: "❗ Danger";
   font-weight: bold;
   margin-right: 10px;
   color: #721c24;
+}
+.post-body blockquote[data-alert-type="info"] {
+  border-left-color: #b035dc;
+  background-color: #f5d7f8;
+}
+.post-body blockquote[data-alert-type="info"]::before {
+  content: "⭐ INFO";
+  font-weight: bold;
+  margin-right: 10px;
+  color: #4a1c72;
 }
 .post-body .hljs {
   display: block;
@@ -401,32 +429,71 @@ a:hover {
 .post-body .hljs-link {
   text-decoration: underline;
 }
-.post-body figure.highlight {
-  background: #282c34;
-  border-radius: 8px;
-  padding: 15px;
-  margin: 5px 0;
-  line-height: 1.5;
-}
+.post-body .gutter .line,
 figure.highlight .code,
 figure.highlight .hljs {
   font-family: Consolas, 'Courier New', 'Monaco', monospace;
   line-height: 1.5;
 }
-.post-body figure.highlight pre {
-  margin: 0;
-  padding: 0;
+.post-body .gutter .line {
+  border-left: 2px;
 }
-.post-body .gutter {
+.post-body figure.highlight {
+  position: relative;
+  background: #282c34;
+  border-radius: 8px;
+  padding: 15px;
+  margin: 15px 0;
+  line-height: 1.5;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.post-body figure.highlight table {
+  border: none;
+  padding: 0;
+  margin-bottom: 0;
+}
+.post-body figure.highlight th,
+.post-body figure.highlight td {
+  border: none;
+  padding: 0;
+  background-color: transparent;
+}
+.post-body figure.highlight .gutter {
   color: #5c6370;
   text-align: right;
   padding-right: 15px;
   user-select: none;
 }
-.post-body .gutter .line {
-  font-family: Consolas, 'Courier New', 'Monaco', monospace;
-  line-height: 1.5;
-}
-.post-body .code {
+.post-body figure.highlight .code {
   color: #abb2bf;
+}
+.highlight-toolbar {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px; /* 元素之间的间距 */
+  font-size: 0.9em;
+}
+.highlight-lang {
+  background-color: #5c6370;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: Consolas, 'Courier New', 'Monaco', monospace;
+}
+.highlight-copy-btn {
+  background-color: transparent;
+  color: #abb2bf;
+  border: 1px solid #444;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+.highlight-copy-btn:hover {
+  background-color: #abb2bf;
+  color: #282c34;
 }
