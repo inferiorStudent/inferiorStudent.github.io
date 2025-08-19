@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hello World | Hexo</title>
     
-<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/inferiorStudent.github.io/css/style.css">
 
     <script type="text/x-mathjax-config">
         MathJax.Hub.Config({
@@ -45,7 +45,7 @@
 <aside class="post-sidebar">
     <nav>
         <div class="sidebar-top">
-            <a href="/" class="back-to-home-link" style="display: flex; align-items: center">
+            <a href="/inferiorStudent.github.io/" class="back-to-home-link" style="display: flex; align-items: center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 18l-6-6l6-6"/></svg>
                 <span>返回首页</span>
             </a>
@@ -63,7 +63,7 @@
                             <ul>
                                 
                                     <li class="sidebar-item ">
-                                        <a href="/2025/08/18/%E6%A0%B7%E4%BE%8B%E7%AC%94%E8%AE%B0/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0-%E7%9F%A9%E9%98%B5/">矩阵</a>
+                                        <a href="/inferiorStudent.github.io/2025/08/18/%E6%A0%B7%E4%BE%8B%E7%AC%94%E8%AE%B0/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0-%E7%9F%A9%E9%98%B5/">矩阵</a>
                                     </li>
                                 
                             </ul>
@@ -81,7 +81,7 @@
                             <ul>
                                 
                                     <li class="sidebar-item active">
-                                        <a href="/2025/08/18/%E6%A0%B7%E4%BE%8B%E7%AC%94%E8%AE%B0/hello-world/">Hello World</a>
+                                        <a href="/inferiorStudent.github.io/2025/08/18/%E6%A0%B7%E4%BE%8B%E7%AC%94%E8%AE%B0/hello-world/">Hello World</a>
                                     </li>
                                 
                             </ul>
@@ -167,7 +167,22 @@
 </div>
     </div>
     
-<script src="/js/script.js"></script>
+<script src="/inferiorStudent.github.io/js/script.js"></script>
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
