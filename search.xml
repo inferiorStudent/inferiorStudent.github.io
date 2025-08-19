@@ -1,6 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Hello World</title>
+    <url>/2025/08/18/%E6%A0%B7%E4%BE%8B%E7%AC%94%E8%AE%B0/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start">Quick Start</h2>
+<h3 id="Create-a-new-post">Create a new post</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server">Run server</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo server<br></code></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files">Generate static files</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo generate<br></code></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites">Deploy to remote sites</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo deploy<br></code></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+      <categories>
+        <category>样例笔记</category>
+        <category>样例</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>矩阵</title>
+    <url>/2025/08/18/%E6%A0%B7%E4%BE%8B%E7%AC%94%E8%AE%B0/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0-%E7%9F%A9%E9%98%B5/</url>
+    <content><![CDATA[<p>这是关于矩阵基础知识的笔记。</p>
+<h3 id="矩阵的定义">矩阵的定义</h3>
+<p>一个 $m \times n$ 的矩阵是一个由 $m$ 行和 $n$ 列元素排列成的矩形阵列。</p>
+<div>
+$$
+A = \begin{pmatrix}
+a_{11} & a_{12} & \cdots & a_{1n} \\
+a_{21} & a_{22} & \cdots & a_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+a_{m1} & a_{m2} & \cdots & a_{mn}
+\end{pmatrix}
+$$
+</div>
+<h3 id="矩阵加法">矩阵加法</h3>
+<p>两个矩阵相加，要求它们的维度相同。</p>
+<p>$$ C = A + B \implies c_{ij} = a_{ij} + b_{ij} $$</p>
+<p>$$ \frac{1}{2} $$</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>这只是一个示例，你可以添加更多内容。</p>
+<blockquote>
+<p>[!DANGER]<br>
+这是危险或错误信息，用于表示严重问题或禁止操作。</p>
+</blockquote>
+<blockquote>
+<p>[!WARNING]<br>
+这是需要引起注意的警告信息，通常用于强调潜在风险。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>样例笔记</category>
+        <category>基础概念</category>
+      </categories>
+  </entry>
+  <entry>
     <title>统计学方法</title>
     <url>/2025/08/19/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E6%96%B9%E6%B3%95/</url>
     <content><![CDATA[<h2 id="1-一元线性回归">1 一元线性回归</h2>
@@ -43,29 +102,6 @@ $$<br>
       <categories>
         <category>深度学习</category>
         <category>第一章：机器学习</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2025/08/18/%E6%A0%B7%E4%BE%8B%E7%AC%94%E8%AE%B0/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start">Quick Start</h2>
-<h3 id="Create-a-new-post">Create a new post</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server">Run server</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo server<br></code></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files">Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo generate<br></code></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites">Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">$ hexo deploy<br></code></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-      <categories>
-        <category>样例笔记</category>
-        <category>样例</category>
       </categories>
   </entry>
   <entry>
@@ -186,42 +222,6 @@ $$
       <categories>
         <category>深度学习</category>
         <category>第一章：机器学习</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>矩阵</title>
-    <url>/2025/08/18/%E6%A0%B7%E4%BE%8B%E7%AC%94%E8%AE%B0/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0-%E7%9F%A9%E9%98%B5/</url>
-    <content><![CDATA[<p>这是关于矩阵基础知识的笔记。</p>
-<h3 id="矩阵的定义">矩阵的定义</h3>
-<p>一个 $m \times n$ 的矩阵是一个由 $m$ 行和 $n$ 列元素排列成的矩形阵列。</p>
-<div>
-$$
-A = \begin{pmatrix}
-a_{11} & a_{12} & \cdots & a_{1n} \\
-a_{21} & a_{22} & \cdots & a_{2n} \\
-\vdots & \vdots & \ddots & \vdots \\
-a_{m1} & a_{m2} & \cdots & a_{mn}
-\end{pmatrix}
-$$
-</div>
-<h3 id="矩阵加法">矩阵加法</h3>
-<p>两个矩阵相加，要求它们的维度相同。</p>
-<p>$$ C = A + B \implies c_{ij} = a_{ij} + b_{ij} $$</p>
-<p>$$ \frac{1}{2} $$</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>这只是一个示例，你可以添加更多内容。</p>
-<blockquote>
-<p>[!DANGER]<br>
-这是危险或错误信息，用于表示严重问题或禁止操作。</p>
-</blockquote>
-<blockquote>
-<p>[!WARNING]<br>
-这是需要引起注意的警告信息，通常用于强调潜在风险。</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>样例笔记</category>
-        <category>基础概念</category>
       </categories>
   </entry>
 </search>
