@@ -278,7 +278,7 @@ a:hover {
   margin-bottom: 20px;
 }
 .post-body {
-  font-size: 1.1em;
+  font-size: 0.9em;
 }
 .post-body img {
   max-width: 100%;
@@ -434,6 +434,9 @@ figure.highlight .code,
 figure.highlight .hljs {
   font-family: Consolas, 'Courier New', 'Monaco', monospace;
   line-height: 1.5;
+}
+.post-body .gutter {
+  width: 20px;
 }
 .post-body .gutter .line {
   border-left: 2px;
