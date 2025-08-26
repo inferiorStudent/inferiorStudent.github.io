@@ -14,7 +14,6 @@
   background-color: #e7f5ff;
 }
 .post-body blockquote[data-alert-type="note"]::before {
-  content: "💡 Note";
   font-weight: bold;
   margin-right: 10px;
   color: #0056b3;
@@ -24,7 +23,6 @@
   background-color: #fff3cd;
 }
 .post-body blockquote[data-alert-type="warning"]::before {
-  content: "⚠️ Warning";
   font-weight: bold;
   margin-right: 10px;
   color: #856404;
@@ -34,7 +32,6 @@
   background-color: #f8d7da;
 }
 .post-body blockquote[data-alert-type="danger"]::before {
-  content: "❗ Danger";
   font-weight: bold;
   margin-right: 10px;
   color: #721c24;
@@ -44,7 +41,6 @@
   background-color: #f5d7f8;
 }
 .post-body blockquote[data-alert-type="info"]::before {
-  content: "⭐ INFO";
   font-weight: bold;
   margin-right: 10px;
   color: #4a1c72;

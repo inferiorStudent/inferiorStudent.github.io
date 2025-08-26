@@ -82,6 +82,68 @@ document.addEventListener('DOMContentLoaded', function () {
     searchInput.addEventListener('input', () => {
         performSearch(searchInput.value);
     });
+
+    // --- TOC 功能 ---
+    const tocContainer = document.getElementById('toc-container');
+    if (tocContainer) {
+        const tocToggleBtn = document.getElementById('toc-toggle-btn');
+        const tocLinks = tocContainer.querySelectorAll('.toc-list-link');
+        const headings = document.querySelectorAll('.post-body h1, .post-body h2, .post-body h3, .post-body h4, .post-body h5, .post-body h6');
+
+        // 切换TOC的展开和收起
+        tocToggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            tocContainer.classList.toggle('collapsed');
+            if (tocContainer.classList.contains('collapsed')) {
+                tocToggleBtn.textContent = '☰';
+            } else {
+                tocToggleBtn.textContent = '✕';
+            }
+        });
+        
+        // 点击页面其他地方收起TOC
+        document.addEventListener('click', (e) => {
+            if (!tocContainer.contains(e.target) && !tocContainer.classList.contains('collapsed')) {
+                tocContainer.classList.add('collapsed');
+                tocToggleBtn.textContent = '☰';
+            }
+        });
+
+        // 平滑滚动
+        tocLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+                // Forcing collapse after click on mobile or small screens can be a good UX
+                if (window.innerWidth < 768) {
+                    tocContainer.classList.add('collapsed');
+                    tocToggleBtn.textContent = '☰';
+                }
+            });
+        });
+
+        // 滚动时高亮当前TOC项
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                const id = entry.target.getAttribute('id');
+                const tocLink = document.querySelector(`.toc-list-link[href="#${id}"]`);
+                if (entry.isIntersecting) {
+                    tocLinks.forEach(link => link.classList.remove('active'));
+                    if (tocLink) {
+                        tocLink.classList.add('active');
+                    }
+                }
+            });
+        }, { rootMargin: "0px 0px -80% 0px" });
+
+        headings.forEach(heading => {
+            observer.observe(heading);
+        });
+    }
 });
 
 // markdown 提示框

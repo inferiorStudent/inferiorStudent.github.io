@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3.2 神经网络 | Hexo</title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          TeX: {
+            extensions: ["amsmath.js", "cancel.js"],
+          }
+        });
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"/>
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <div class="container">
+        <header class="post-navbar">
+    <div class="nav-left">
+        <div class="nav-item search-trigger">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M21.71 20.29l-3.68-3.68A8.963 8.963 0 0 0 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.49 0 4.74-1.01 6.32-2.67l3.68 3.68a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.42ZM4 11a7 7 0 1 1 14 0a7 7 0 0 1-14 0Z"/></svg>
+            <span style="font-size: small;">搜索...</span>
+            <span class="search-shortcut" style="font-size: small;">Ctrl K</span>
+        </div>
+    </div>
+    <div style="width: 10px;"></div>
+    <div class="nav-right">
+        <div class="nav-item theme-switcher">
+            <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12a4 4 0 1 0 8 0a4 4 0 1 0-8 0m-5 0h1m8-7V4m-5.6 1.4L4.8 6.8M16 17.2l1.4 1.4M20 12h1m-6-5.2l1.4-1.4M12 21v-1"/></svg>
+            <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3a6 6 0 0 0 9 9a9 9 0 1 1-9-9Z"/></svg>
+        </div>
+    </div>
+</header>
+
+<div id="search-modal" class="modal-overlay" style="display: none;">
+    <div class="modal-content">
+        <input type="text" id="search-input" placeholder="输入关键字搜索...">
+        <div id="search-results"></div>
+    </div>
+</div>
+<div class="post-layout">
+  <aside class="post-sidebar">
+    
+    
+      
+      <nav>
+          <div class="sidebar-top">
+              <a href="/" class="back-to-home-link" style="display: flex; align-items: center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 18l-6-6l6-6"/></svg>
+                  <span>返回首页</span>
+              </a>
+              <h3>深度学习</h3>
+          </div>
+          <ul>
+              
+                  <li class="sidebar-group">
+                      <details open>
+                          <summary>
+                              <svg class="sidebar-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="m15.5 12.001l-5.75 5.75c-.15.15-.325.225-.525.225s-.375-.075-.525-.225c-.3-.3-.3-.775 0-1.075l5.225-5.25l-5.225-5.25c-.3-.3-.3-.775 0-1.075s.775-.3 1.075 0l5.75 5.75c.15.15.225.325.225.525s-.075.375-.225.525Z"/></svg>
+                              <span class="sidebar-summary-text">1 机器学习</span>
+                          </summary>
+                          <div class="details-content">
+                              <ul>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/2025/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/1.1-%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/">1.1 评价指标</a>
+                                      </li>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/2025/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/1.2-%E5%9B%9E%E5%BD%92%E7%AE%97%E6%B3%95/">1.2 回归算法</a>
+                                      </li>
+                                  
+                              </ul>
+                          </div>
+                      </details>
+                  </li>
+              
+                  <li class="sidebar-group">
+                      <details open>
+                          <summary>
+                              <svg class="sidebar-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="m15.5 12.001l-5.75 5.75c-.15.15-.325.225-.525.225s-.375-.075-.525-.225c-.3-.3-.3-.775 0-1.075l5.225-5.25l-5.225-5.25c-.3-.3-.3-.775 0-1.075s.775-.3 1.075 0l5.75 5.75c.15.15.225.325.225.525s-.075.375-.225.525Z"/></svg>
+                              <span class="sidebar-summary-text">2 实验入门</span>
+                          </summary>
+                          <div class="details-content">
+                              <ul>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/2025/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/2.1-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">2.1 依赖管理</a>
+                                      </li>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/2025/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/2.2-Pytorch%E5%9F%BA%E6%9C%AC/">2.2 Pytorch技巧</a>
+                                      </li>
+                                  
+                              </ul>
+                          </div>
+                      </details>
+                  </li>
+              
+                  <li class="sidebar-group">
+                      <details open>
+                          <summary>
+                              <svg class="sidebar-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="m15.5 12.001l-5.75 5.75c-.15.15-.325.225-.525.225s-.375-.075-.525-.225c-.3-.3-.3-.775 0-1.075l5.225-5.25l-5.225-5.25c-.3-.3-.3-.775 0-1.075s.775-.3 1.075 0l5.75 5.75c.15.15.225.325.225.525s-.075.375-.225.525Z"/></svg>
+                              <span class="sidebar-summary-text">3 深度学习基础</span>
+                          </summary>
+                          <div class="details-content">
+                              <ul>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/2025/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/3.1-%E5%9B%9E%E5%BD%92/">3.1 训练回归模型</a>
+                                      </li>
+                                  
+                                      <li class="sidebar-item active">
+                                          <a href="/2025/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/3.2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">3.2 神经网络</a>
+                                      </li>
+                                  
+                              </ul>
+                          </div>
+                      </details>
+                  </li>
+              
+          </ul>
+      </nav>
+    
+  </aside>
+
+  <article class="post-content">
+    
+
+    <h1>3.2 神经网络</h1>
+    <div class="post-meta">
+      
+        <time class="post-date-tag" datetime="2025-08-18T16:00:00.000Z">
+            发布于: 2025-08-19
+        </time>
+      
+    </div>
+    <div class="post-body">
+        <h1 id="1-基本概念">1 基本概念</h1>
+
+    </div>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const codeBlocks = document.querySelectorAll('figure.highlight');
+    
+        codeBlocks.forEach(block => {
+            // 1. 获取语言标签
+            const lang = block.classList.contains('highlight') ? 
+                         block.classList[1] : '';
+    
+            // 2. 创建一个容器来包裹语言标签和复制按钮
+            const toolbar = document.createElement('div');
+            toolbar.className = 'highlight-toolbar';
+    
+            // 3. 创建语言标签
+            if (lang) {
+                const langLabel = document.createElement('span');
+                langLabel.className = 'highlight-lang';
+                langLabel.textContent = lang.toUpperCase();
+                toolbar.appendChild(langLabel);
+            }
+    
+            // 4. 创建复制按钮
+            const copyButton = document.createElement('button');
+            copyButton.className = 'highlight-copy-btn';
+            copyButton.textContent = '复制';
+            
+            copyButton.addEventListener('click', () => {
+                const code = block.querySelector('pre');
+                if (code) {
+                    navigator.clipboard.writeText(code.textContent).then(() => {
+                        copyButton.textContent = '已复制!';
+                        setTimeout(() => {
+                            copyButton.textContent = '复制';
+                        }, 2000);
+                    }).catch(err => {
+                        console.error('复制失败: ', err);
+                    });
+                }
+            });
+            toolbar.appendChild(copyButton);
+    
+            // 5. 将工具栏插入到代码块中
+            block.appendChild(toolbar);
+        });
+    });
+</script>
+  </article>
+</div>
+
+    </div>
+    
+<script src="/js/script.js"></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>
