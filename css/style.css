@@ -171,10 +171,17 @@ a:hover {
 }
 .modal-overlay {
   position: fixed;
-  tent: center;
-  align-items: center;
+/* Key fix: Make overlay cover the entire screen */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center; /* Fix typo 'tent' -> 'justify-content' */
+  align-items: flex-start; /* Align modal to the top */
+  padding-top: 15vh; /* Give some space from the top */
+  background: rgba(0,0,0,0.4); /* Add a semi-transparent backdrop */
   z-index: 2000;
-  padding: 20px;
 }
 .modal-content {
   background: var(--card-bg-color);
@@ -213,11 +220,12 @@ a:hover {
   flex-shrink: 0;
   border-right: 1px solid var(--border-color);
   background: var(--bg-color);
-/* Add max-height and overflow-y for independent scrolling */
-  max-height: calc(100vh - 40px); /* Adjust based on your header/footer height */
-  overflow-y: auto;
   position: sticky;
-  top: 20px; /* Adjust based on your layout's top padding */
+/* Key fix: Set top offset to navbar's height + margin */
+  top: 60px;
+/* Adjust max-height accordingly */
+  max-height: calc(100vh - 80px); /* 60px top offset + 20px bottom margin */
+  overflow-y: auto;
 }
 .post-sidebar nav {
   height: 100%;
@@ -433,6 +441,7 @@ article.post-content > h1 {
   line-height: 1;
   color: var(--text-color);
 }
+.toc-container.collapsed .toc-list,
 .toc-container.collapsed .toc-title {
   display: none;
 }
@@ -449,6 +458,7 @@ article.post-content > h1 {
 }
 .toc-list ol {
   padding-left: 15px;
+  list-style-type: none; /* Key fix: Remove list numbering */
 }
 .toc-list-item {
   margin: 5px 0;
