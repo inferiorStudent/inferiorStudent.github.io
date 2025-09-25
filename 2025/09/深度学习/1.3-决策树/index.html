@@ -77,6 +77,18 @@
                                           <a href="/2025/09/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/1.3-%E5%86%B3%E7%AD%96%E6%A0%91/">1.3 决策树</a>
                                       </li>
                                   
+                                      <li class="sidebar-item ">
+                                          <a href="/2025/09/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/1.4-%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/">1.4 支持向量机</a>
+                                      </li>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/2025/09/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/1.5-%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95/">1.5 聚类算法</a>
+                                      </li>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/2025/09/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/1.6-%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF/">1.6 朴素贝叶斯</a>
+                                      </li>
+                                  
                               </ul>
                           </div>
                       </details>
@@ -501,7 +513,7 @@
 </table>
 <p>最后得到的决策树如图所示</p>
 <div style="display: flex; justify-content: center;"><img src="https://raw.gitmirror.com/inferiorStudent/resource-CDN/main/dl/1.3-decision-tree.svg"></div>
-<p>后剪枝：假设“下雨”分支下的“风速被剪掉了，即该节点变成了叶子节点，其标签应该变为“是”。因为标签为“是”的样本数量大于“否”的样本数量（少数服从多数）。</p>
+<p>后剪枝：假设“下雨”分支下的“风速”被剪掉了，即该节点变成了叶子节点，其标签应该变为“是”。因为标签为“是”的样本数量大于“否”的样本数量（少数服从多数）。</p>
 <h2 id="5-2-回归树">5.2 回归树</h2>
 
     </div>
@@ -558,20 +570,5 @@
     
 <script src="/js/script.js"></script>
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

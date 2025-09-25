@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2.1 依赖管理 | Hexo</title>
+    <title>1.6 朴素贝叶斯 | Hexo</title>
     
 <link rel="stylesheet" href="/css/style.css">
 
@@ -85,7 +85,7 @@
                                           <a href="/2025/09/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/1.5-%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95/">1.5 聚类算法</a>
                                       </li>
                                   
-                                      <li class="sidebar-item ">
+                                      <li class="sidebar-item active">
                                           <a href="/2025/09/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/1.6-%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF/">1.6 朴素贝叶斯</a>
                                       </li>
                                   
@@ -103,7 +103,7 @@
                           <div class="details-content">
                               <ul>
                                   
-                                      <li class="sidebar-item active">
+                                      <li class="sidebar-item ">
                                           <a href="/2025/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/2.1-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">2.1 依赖管理</a>
                                       </li>
                                   
@@ -155,81 +155,21 @@
             <span>文章目录</span>
         </div>
         <div class="toc-list">
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-conda%E7%AE%A1%E7%90%86"><span class="toc-text">1 conda管理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E7%9A%84%E5%88%9B%E5%BB%BA%E4%B8%8E%E9%94%80%E6%AF%81"><span class="toc-text">1.1 虚拟环境的创建与销毁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E4%BE%9D%E8%B5%96%E5%AE%89%E8%A3%85"><span class="toc-text">1.2 虚拟环境依赖安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-%E4%BD%BF%E7%94%A8requirements-txt"><span class="toc-text">1.3 使用requirements.txt</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1"><span class="toc-text">1</span></a></li></ol>
         </div>
       </div>
     
 
-    <h1>2.1 依赖管理</h1>
+    <h1>1.6 朴素贝叶斯</h1>
     <div class="post-meta">
       
-        <time class="post-date-tag" datetime="2025-08-18T16:00:00.000Z">
-            发布于: 2025-08-19
+        <time class="post-date-tag" datetime="2025-09-01T16:00:00.000Z">
+            发布于: 2025-09-02
         </time>
       
     </div>
     <div class="post-body">
-        <h1 id="1-conda管理">1 conda管理</h1>
-<p>在Windows操作系统中，下载annoconda，并<u>配置环境变量</u>：将<code>安装路径\Anaconda</code>、<code>安装路径\Anaconda\Scripts</code>、<code>安装路径\Anaconda\Library\bin</code>添加到Path环境变量中。</p>
-<h2 id="1-1-虚拟环境的创建与销毁">1.1 虚拟环境的创建与销毁</h2>
-<ul>
-<li>列出虚拟环境</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda <span class="hljs-built_in">env</span> list<br></code></pre></td></tr></table></figure>
-<ul>
-<li>创建虚拟环境并指定python版本</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda create -n 虚拟环境名 python=3.9<br></code></pre></td></tr></table></figure>
-<ul>
-<li>在上一条的基础上，指定安装路径</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda create --prefix=路径\虚拟环境名 虚拟环境名 python=3.9<br></code></pre></td></tr></table></figure>
-<ul>
-<li>删除虚拟环境</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda remove -n 虚拟环境名 --all<br></code></pre></td></tr></table></figure>
-<ul>
-<li>进入虚拟环境</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda activate 虚拟环境名<br></code></pre></td></tr></table></figure>
-<h2 id="1-2-虚拟环境依赖安装">1.2 虚拟环境依赖安装</h2>
-<ul>
-<li>列出所有的库</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda list<br></code></pre></td></tr></table></figure>
-<ul>
-<li>安装库并指定版本</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip install numpy==1.21.5 -i https://pypi.tuna.tsinghua.edu.cn/simple<br>pip install Pandas==1.2.4 -i https://pypi.tuna.tsinghua.edu.cn/simple<br>pip install Matplotlib==3.5.1 -i https://pypi.tuna.tsinghua.edu.cn/simple<br></code></pre></td></tr></table></figure>
-<ul>
-<li>查看某个库的版本</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip show numpy<br></code></pre></td></tr></table></figure>
-<ul>
-<li>更新包版本至最新</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip install --upgrade 包名<br></code></pre></td></tr></table></figure>
-<ul>
-<li>版本降级</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip install numpy==1.18.5<br></code></pre></td></tr></table></figure>
-<ul>
-<li>卸载包（多个包可以用空格隔开）</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip uninstall 包名1 包名2<br></code></pre></td></tr></table></figure>
-<ul>
-<li>退出虚拟环境</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda deactivate<br></code></pre></td></tr></table></figure>
-<h2 id="1-3-使用requirements-txt">1.3 使用requirements.txt</h2>
-<ul>
-<li>生成依赖文件</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip freeze &gt; requirements.txt<br></code></pre></td></tr></table></figure>
-<ul>
-<li>根据依赖文件下载对应的包，最好是新建一个虚拟环境</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip install -r requirements.txt<br></code></pre></td></tr></table></figure>
+        <h1 id="1">1</h1>
 
     </div>
     <script>
