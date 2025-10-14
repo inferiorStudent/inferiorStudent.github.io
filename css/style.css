@@ -53,34 +53,95 @@ a:hover {
   background: var(--card-bg-color);
   border-radius: 8px;
 }
-.profile-section {
+.hero-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+  background-image: url("/img/background.png");
+  background-size: cover;
+  background-position: center center;
+  position: relative;
+  color: #fff;
+  box-sizing: border-box;
+}
+.hero-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 1;
+}
+.profile-content {
+  position: relative;
+  z-index: 2;
   text-align: center;
-  padding: 40px 20px;
-  background: var(--card-bg-color);
-  border-radius: 8px;
-  margin-bottom: 40px;
-  box-shadow: 0 4px 8px var(--shadow-color);
+  max-width: 600px;
 }
 .profile-avatar {
   width: 120px;
   height: 120px;
   border-radius: 50%;
-  object-fit: cover;
-  border: 4px solid var(--card-bg-color);
-  box-shadow: 0 0 10px var(--shadow-color);
+  border: 3px solid rgba(255,255,255,0.8);
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
 }
 .profile-name {
-  font-size: 2em;
-  margin: 10px 0 5px;
+  font-size: 2.5em;
+  margin: 15px 0;
+  font-weight: 600;
+  text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
 }
 .profile-bio {
-  font-size: 1.1em;
-  color: var(--text-color-secondary);
-  margin-bottom: 20px;
+  font-size: 1.2em;
+  margin-bottom: 30px;
+  font-family: 'KaiTi', 'STKaiti', serif;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
 }
-.profile-socials a {
-  margin: 0 10px;
-  text-transform: capitalize;
+.main-nav {
+  margin-bottom: 25px;
+}
+.nav-button {
+  display: inline-block;
+  padding: 8px 25px;
+  margin: 5px;
+  border: 1px solid #fff;
+  border-radius: 20px;
+  color: #fff;
+  font-size: 1em;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.nav-button:hover {
+  background-color: rgba(255,255,255,0.2);
+  transform: translateY(-2px);
+}
+.social-icons a {
+  color: #fff;
+  font-size: 1.8em;
+  margin: 0 15px;
+  transition: all 0.3s ease;
+  opacity: 0.8;
+}
+.social-icons a:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+.main-notes {
+  padding: 40px 0;
+}
+.subject-area {
+  margin-bottom: 40px;
+}
+.area-title {
+  font-size: 1.8em;
+  color: var(--text-color);
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 10px;
+  margin-bottom: 20px;
 }
 .notes-grid {
   display: grid;
@@ -98,22 +159,12 @@ a:hover {
 }
 .category-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 16px var(--shadow-color);
   text-decoration: none;
 }
 .category-card h2 {
   margin-top: 0;
   color: var(--accent-color-dark);
-}
-.subject-area {
-  margin-bottom: 40px;
-}
-.area-title {
-  font-size: 1.8em;
-  color: var(--text-color);
-  border-bottom: 2px solid var(--accent-color);
-  padding-bottom: 10px;
-  margin-bottom: 20px;
 }
 .post-navbar {
   display: flex;
@@ -347,13 +398,10 @@ a:hover {
   font-size: 0.9em;
   border: 1px solid var(--border-color);
 }
-article.post-content > h1 {
-  padding-bottom: 15px;
-  border-bottom: 1px solid var(--border-color);
-}
 .post-meta {
   margin-top: 20px;
   margin-bottom: 20px;
+  border-bottom: 1px solid var(--border-color);
 }
 .post-body blockquote {
   margin: 1em 0;
@@ -561,13 +609,14 @@ figure.highlight .hljs {
   padding: 15px;
   margin: 15px 0;
   line-height: 1.5;
-  overflow-x: auto;
   -webkit-overflow-scrolling: touch;
 }
 .post-body figure.highlight table {
   border: none;
   padding: 0;
   margin-bottom: 0;
+  display: block;
+  overflow-x: auto;
 }
 .post-body figure.highlight th,
 .post-body figure.highlight td {

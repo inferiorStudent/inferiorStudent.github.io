@@ -15,6 +15,7 @@
         });
     </script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <meta name="generator" content="Hexo 7.3.0"></head>
 <body>
     <div class="container">
@@ -222,14 +223,16 @@
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda deactivate<br></code></pre></td></tr></table></figure>
 <h2 id="1-3-使用requirements-txt">1.3 使用requirements.txt</h2>
+<p>在把自己写好的Python代码发给别人的时候，对方可能会缺少代码运行所需要的第三方库，一个一个去pip比较麻烦。这时候可以把项目所需的第三方库导出为一个<code>requirements.txt</code>文件，放在文件夹里一起发给对方。</p>
 <ul>
-<li>生成依赖文件</li>
+<li>生成依赖文件：<code>pip freeze</code>列出当前虚拟环境中安装的所有Python包及对应的版本，大于号就是Linux中的重定向符号。如果是windows操作系统下呢，我们一般使用conda虚拟环境运行我们的Python脚本。那么如下命令就可以打开conda prompt执行，保存输出的txt文件就存放在了命令行前面一串路径下。</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip freeze &gt; requirements.txt<br></code></pre></td></tr></table></figure>
 <ul>
 <li>根据依赖文件下载对应的包，最好是新建一个虚拟环境</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip install -r requirements.txt<br></code></pre></td></tr></table></figure>
+<p>很显然，上述依赖打包有很大的缺点。首先创建一个windows下的conda虚拟环境就是为了服务多个python项目，而每个python项目所依赖的包不尽相同，因此该虚拟环境安装的包是多个项目的集合。而我们只需要发送一个项目，打包该虚拟环境的包就会将其他项目中所依赖的、和本项目无关的包也写进来了，因此对方下载依赖就浪费了资源。</p>
 
     </div>
     <script>
@@ -259,9 +262,10 @@
             copyButton.textContent = '复制';
             
             copyButton.addEventListener('click', () => {
-                const code = block.querySelector('pre');
-                if (code) {
-                    navigator.clipboard.writeText(code.textContent).then(() => {
+                // 优先选择 .code 元素（针对有行号的表格），如果没有则选择 pre 元素
+                const codeElement = block.querySelector('.code') || block.querySelector('pre');
+                if (codeElement) {
+                    navigator.clipboard.writeText(codeElement.textContent).then(() => {
                         copyButton.textContent = '已复制!';
                         setTimeout(() => {
                             copyButton.textContent = '复制';
@@ -285,5 +289,20 @@
     
 <script src="/js/script.js"></script>
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>

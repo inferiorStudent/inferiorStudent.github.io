@@ -15,6 +15,7 @@
         });
     </script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <meta name="generator" content="Hexo 7.3.0"></head>
 <body>
     <div class="container">
@@ -78,7 +79,7 @@
                       <details open>
                           <summary>
                               <svg class="sidebar-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="m15.5 12.001l-5.75 5.75c-.15.15-.325.225-.525.225s-.375-.075-.525-.225c-.3-.3-.3-.775 0-1.075l5.225-5.25l-5.225-5.25c-.3-.3-.3-.775 0-1.075s.775-.3 1.075 0l5.75 5.75c.15.15.225.325.225.525s-.075.375-.225.525Z"/></svg>
-                              <span class="sidebar-summary-text">1 构建一个大模型</span>
+                              <span class="sidebar-summary-text">2 构建一个大模型</span>
                           </summary>
                           <div class="details-content">
                               <ul>
@@ -204,9 +205,10 @@
             copyButton.textContent = '复制';
             
             copyButton.addEventListener('click', () => {
-                const code = block.querySelector('pre');
-                if (code) {
-                    navigator.clipboard.writeText(code.textContent).then(() => {
+                // 优先选择 .code 元素（针对有行号的表格），如果没有则选择 pre 元素
+                const codeElement = block.querySelector('.code') || block.querySelector('pre');
+                if (codeElement) {
+                    navigator.clipboard.writeText(codeElement.textContent).then(() => {
                         copyButton.textContent = '已复制!';
                         setTimeout(() => {
                             copyButton.textContent = '复制';
@@ -230,5 +232,20 @@
     
 <script src="/js/script.js"></script>
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
