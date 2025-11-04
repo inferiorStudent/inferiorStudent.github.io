@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3.4 ResNet | Hexo</title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          TeX: {
+            extensions: ["amsmath.js", "cancel.js"],
+          }
+        });
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <div class="container">
+        <header class="post-navbar">
+    <a href="/" class="nav-left">
+        <img src="/img/avatar.jpg" alt="Avatar" class="nav-avatar">
+        <span class="nav-title">上下求索</span>
+    </a>
+
+    <div class="nav-right">
+        <div class="nav-item search-trigger">
+            <img src="/img/icons/search.svg" alt="Search" class="search-icon">
+            <span>请输入关键词搜索...</span>
+        </div>
+
+        <a href="/notes/" class="nav-link">笔记导航</a>
+
+        <div class="nav-item theme-switcher">
+            <img src="/img/icons/sun.svg" alt="Sun" class="sun-icon">
+            <img src="/img/icons/moon.svg" alt="Moon" class="moon-icon">
+        </div>
+    </div>
+</header>
+
+<div id="search-modal" class="modal-overlay" style="display: none;">
+    <div class="modal-content">
+        <input type="text" id="search-input" placeholder="输入关键字搜索...">
+        <div id="search-results"></div>
+    </div>
+</div>
+<div class="post-layout">
+  <aside class="post-sidebar">
+    
+    
+      
+      <nav>
+          <div class="sidebar-top">
+              <!-- <a href="/" class="back-to-home-link" style="display: flex; align-items: center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 18l-6-6l6-6"/></svg>
+                  <span>返回首页</span>
+              </a> -->
+              <h3>深度学习</h3>
+          </div>
+          <ul>
+              
+                  <li class="sidebar-group">
+                      <details open>
+                          <summary>
+                              <svg class="sidebar-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="m15.5 12.001l-5.75 5.75c-.15.15-.325.225-.525.225s-.375-.075-.525-.225c-.3-.3-.3-.775 0-1.075l5.225-5.25l-5.225-5.25c-.3-.3-.3-.775 0-1.075s.775-.3 1.075 0l5.75 5.75c.15.15.225.325.225.525s-.075.375-.225.525Z"/></svg>
+                              <span class="sidebar-summary-text">1 机器学习</span>
+                          </summary>
+                          <div class="details-content">
+                              <ul>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/1.1-%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/">1.1 评价指标</a>
+                                      </li>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/1.2-%E5%9B%9E%E5%BD%92%E7%AE%97%E6%B3%95/">1.2 回归算法</a>
+                                      </li>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/1.3-%E5%86%B3%E7%AD%96%E6%A0%91/">1.3 决策树</a>
+                                      </li>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/1.4-%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/">1.4 支持向量机</a>
+                                      </li>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/1.5-%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95/">1.5 聚类算法</a>
+                                      </li>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/1.6-%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF/">1.6 朴素贝叶斯</a>
+                                      </li>
+                                  
+                              </ul>
+                          </div>
+                      </details>
+                  </li>
+              
+                  <li class="sidebar-group">
+                      <details open>
+                          <summary>
+                              <svg class="sidebar-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="m15.5 12.001l-5.75 5.75c-.15.15-.325.225-.525.225s-.375-.075-.525-.225c-.3-.3-.3-.775 0-1.075l5.225-5.25l-5.225-5.25c-.3-.3-.3-.775 0-1.075s.775-.3 1.075 0l5.75 5.75c.15.15.225.325.225.525s-.075.375-.225.525Z"/></svg>
+                              <span class="sidebar-summary-text">2 深度神经网络</span>
+                          </summary>
+                          <div class="details-content">
+                              <ul>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/2.1-%E5%9B%9E%E5%BD%92/">2.1 训练回归模型</a>
+                                      </li>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/2.2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">2.2 神经网络原理</a>
+                                      </li>
+                                  
+                              </ul>
+                          </div>
+                      </details>
+                  </li>
+              
+                  <li class="sidebar-group">
+                      <details open>
+                          <summary>
+                              <svg class="sidebar-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="m15.5 12.001l-5.75 5.75c-.15.15-.325.225-.525.225s-.375-.075-.525-.225c-.3-.3-.3-.775 0-1.075l5.225-5.25l-5.225-5.25c-.3-.3-.3-.775 0-1.075s.775-.3 1.075 0l5.75 5.75c.15.15.225.325.225.525s-.075.375-.225.525Z"/></svg>
+                              <span class="sidebar-summary-text">3 计算机视觉基础</span>
+                          </summary>
+                          <div class="details-content">
+                              <ul>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/3.1-CNN/">3.1 卷积神经网络原理</a>
+                                      </li>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/3.2-LeNet/">3.2 LeNet</a>
+                                      </li>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/3.3-%E5%85%B6%E4%BB%96%E7%BB%8F%E5%85%B8%E5%8D%B7%E7%A7%AF%E7%BD%91%E7%BB%9C/">3.3 经典CNN模型</a>
+                                      </li>
+                                  
+                                      <li class="sidebar-item active">
+                                          <a href="/notes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/3.4-ResNet/">3.4 ResNet</a>
+                                      </li>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/3.5-%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%BB%BB%E5%8A%A1/">3.5 计算机视觉任务</a>
+                                      </li>
+                                  
+                              </ul>
+                          </div>
+                      </details>
+                  </li>
+              
+                  <li class="sidebar-group">
+                      <details open>
+                          <summary>
+                              <svg class="sidebar-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="m15.5 12.001l-5.75 5.75c-.15.15-.325.225-.525.225s-.375-.075-.525-.225c-.3-.3-.3-.775 0-1.075l5.225-5.25l-5.225-5.25c-.3-.3-.3-.775 0-1.075s.775-.3 1.075 0l5.75 5.75c.15.15.225.325.225.525s-.075.375-.225.525Z"/></svg>
+                              <span class="sidebar-summary-text">4 自然语言处理</span>
+                          </summary>
+                          <div class="details-content">
+                              <ul>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/4.1-%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E4%BB%BB%E5%8A%A1/">4.1 NLP发展</a>
+                                      </li>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/4.2-%E5%88%86%E8%AF%8D/">4.2 分词</a>
+                                      </li>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/4.3-%E8%AF%8D%E5%B5%8C%E5%85%A5/">4.3 词嵌入</a>
+                                      </li>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/4.4-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%8E%9F%E7%90%86/">4.4 循环神经网络原理</a>
+                                      </li>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/4.5-LSTM%E5%8F%8A%E5%85%B6%E5%8F%98%E4%BD%93/">4.5 LSTM及其变体</a>
+                                      </li>
+                                  
+                              </ul>
+                          </div>
+                      </details>
+                  </li>
+              
+                  <li class="sidebar-group">
+                      <details open>
+                          <summary>
+                              <svg class="sidebar-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="m15.5 12.001l-5.75 5.75c-.15.15-.325.225-.525.225s-.375-.075-.525-.225c-.3-.3-.3-.775 0-1.075l5.225-5.25l-5.225-5.25c-.3-.3-.3-.775 0-1.075s.775-.3 1.075 0l5.75 5.75c.15.15.225.325.225.525s-.075.375-.225.525Z"/></svg>
+                              <span class="sidebar-summary-text">5 预训练语言模型</span>
+                          </summary>
+                          <div class="details-content">
+                              <ul>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/5.1-Transformer/">5.1 Transformer</a>
+                                      </li>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/5.2-BERT/">5.2 BERT</a>
+                                      </li>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/5.3-GPT%E7%B3%BB%E5%88%97/">5.3 GPT系列</a>
+                                      </li>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/5.4-%E5%85%B6%E4%BB%96/">5.4 其他</a>
+                                      </li>
+                                  
+                              </ul>
+                          </div>
+                      </details>
+                  </li>
+              
+          </ul>
+      </nav>
+    
+  </aside>
+
+  <article class="post-content">
+    
+      <div id="toc-container" class="toc-container collapsed">
+        <button id="toc-toggle-btn" class="toc-toggle-btn">☰</button>
+        <div class="toc-title">
+            <span>文章目录</span>
+        </div>
+        <div class="toc-list">
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E6%AE%8B%E5%B7%AE%E5%9D%97"><span class="toc-text">1 残差块</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E5%BD%92%E4%B8%80%E5%8C%96"><span class="toc-text">2 归一化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-Batch-Normalization"><span class="toc-text">2.1 Batch Normalization</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-Layer-Normalization"><span class="toc-text">2.2 Layer Normalization</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-Instance-Normalization"><span class="toc-text">2.3 Instance Normalization</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-Group-Normalization"><span class="toc-text">2.4 Group Normalization</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-Pytorch%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-text">3 Pytorch代码实现</span></a></li></ol>
+        </div>
+      </div>
+    
+
+    <h1>3.4 ResNet</h1>
+    <!-- <div class="post-meta">
+      
+        <time class="post-date-tag" datetime="2025-10-29T08:45:48.974Z">
+            发布于: 2025-10-29
+        </time>
+      
+    </div> -->
+    <div class="post-body">
+        <p>ResNet在2015年的ILSVRC中以3.57%的top5错误率夺冠，首次超过人类水平的5.1%，其核心就是<font style="color: red;">残差学习</font>，使得网络可以训练到极深的层次。在残差连接网络之前，一般的卷积神经网络只有几十层，有了ResNet之后，深度可达百层。</p>
+<p>一般来说，在训练参数相同的情况下，网络越深，能够更好地提取抽象特征，最终获得更好的拟合效果。但实际上网络到达一定深度后，<strong>训练误差</strong>反而上升，这是因为深层网络难以优化。</p>
+<p>假设有一个网络最终的输出为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold-italic">x</mi></mrow><annotation encoding="application/x-tex">\boldsymbol{x}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4444em;"></span><span class="mord"><span class="mord"><span class="mord boldsymbol">x</span></span></span></span></span></span>，在最后一层新增一层，理论上该层输出也是<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold-italic">x</mi></mrow><annotation encoding="application/x-tex">\boldsymbol{x}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4444em;"></span><span class="mord"><span class="mord"><span class="mord boldsymbol">x</span></span></span></span></span></span>，也就是一个恒等映射。然而实际上最后一层网络无法学到恒等映射。这是因为所有层的参数是一起学习的，网络无法规划哪些层用于恒等连接（不起作用）。随着网络深度的增加，反向传播的梯度传递到最前面（连乘）的几层会变得非常小，监督信号弱，让浅层网络提取到的特征质量下降，因此训练误差不降反升。</p>
+<p>论文原文：<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1512.03385">Deep Residual Learning for Image Recognition</a>.</p>
+<h1 id="1-残差块">1 残差块</h1>
+<p>为了让新增加的层更好地学习到特征，将新输出的特征分为两个部分：一个是<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold-italic">x</mi></mrow><annotation encoding="application/x-tex">\boldsymbol{x}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4444em;"></span><span class="mord"><span class="mord"><span class="mord boldsymbol">x</span></span></span></span></span></span>本身，另一部分是新增加的层对<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold-italic">x</mi></mrow><annotation encoding="application/x-tex">\boldsymbol{x}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4444em;"></span><span class="mord"><span class="mord"><span class="mord boldsymbol">x</span></span></span></span></span></span>的修改<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">F</mi><mo stretchy="false">(</mo><mi mathvariant="bold-italic">x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\mathcal{F}(\boldsymbol{x})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathcal" style="margin-right:0.09931em;">F</span><span class="mopen">(</span><span class="mord"><span class="mord"><span class="mord boldsymbol">x</span></span></span><span class="mclose">)</span></span></span></span>，修改的部分叫做残差。图中残差块里<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold-italic">x</mi></mrow><annotation encoding="application/x-tex">\boldsymbol{x}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4444em;"></span><span class="mord"><span class="mord"><span class="mord boldsymbol">x</span></span></span></span></span></span>绕过两层到达激活函数的这条路径被称为捷径连接（shortcut connection），可以让梯度通过捷径直接传递到网络浅层，避免梯度层层传递所导致的梯度连乘让监督信号变弱的问题。</p>
+<div style="display: flex; justify-content: center;"><img src="https://raw.gitmirror.com/inferiorStudent/resource-CDN/main/dl/3.4-residual-block.svg"></div>
+<p>在原文里，残差块有两种：</p>
+<ul>
+<li>BasicBlock：用于ResNet-18、ResNet-34，后面的数字代表网络层数，由两个3×3卷积层组成
+<ul>
+<li>以ResNet-18为例，其conv2层的残差块用<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle scriptlevel="0" displaystyle="true"><mrow><mo fence="true">[</mo><mtable rowspacing="0.16em" columnalign="center" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mn>3</mn><mo>×</mo><mn>3</mn><mo separator="true">,</mo><mtext> </mtext><mn>64</mn></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mn>3</mn><mo>×</mo><mn>3</mn><mo separator="true">,</mo><mtext> </mtext><mn>64</mn></mrow></mstyle></mtd></mtr></mtable><mo fence="true">]</mo></mrow><mo>×</mo><mn>2</mn></mstyle></mrow><annotation encoding="application/x-tex">\displaystyle \begin{bmatrix} 3\times 3,\ 64 \\ 3\times 3,\ 64 \end{bmatrix}\times 2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.4em;vertical-align:-0.95em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">[</span></span><span class="mord"><span class="mtable"><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">3</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace"> </span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">64</span></span></span><span style="top:-2.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">3</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace"> </span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">64</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.95em;"><span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">]</span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">2</span></span></span></span>表示，“×2”表示两个这样的残差块（图中蓝色虚线框部分）连接在一起。下图中的batch norm是按照通道进行的，也就是对batch_size×56×56个值上计算均值和方差，因为一个通道对应一个特征。几个归一化的区别在下一小节中解释。</li>
+<li>为了让相加的大小保持一致，conv3的捷径连接的步长为2，但这样岂不是跳过了非常多的特征？实际上，ResNet的设计思想就是让捷径连接尽量不产生额外的计算量。此外，虽然会有特征的损失，但信息的传递主要还是靠主线进行的。conv4、conv5和conv3一样，都是特征图尺寸减半，捷径连接也用相同的方式实现高宽减半。后面的捷径连接调整大小同理。</li>
+</ul>
+</li>
+</ul>
+<div style="display: flex; justify-content: center;">
+  <img src="https://raw.gitmirror.com/inferiorStudent/resource-CDN/main/dl/3.4-resnet18.svg">
+</div>
+<ul>
+<li>Bottleneck：用于ResNet-50、ResNet-101、ResNet-152，依次由一个1×1卷积层、一个3×3卷积层、一个1×1卷积层组成
+<ul>
+<li>减少网络的计算量</li>
+<li>同样的道理，可以根据论文Table 1画出ResNet-50的Bottleneck模块，以conv2和conv3为例</li>
+</ul>
+</li>
+</ul>
+<div style="display: flex; justify-content: center;">
+  <img src="https://raw.gitmirror.com/inferiorStudent/resource-CDN/main/dl/3.4-resnet50.svg">
+</div>
+<h1 id="2-归一化">2 归一化</h1>
+<h2 id="2-1-Batch-Normalization">2.1 Batch Normalization</h2>
+<p>所谓批次归一化，就是在一个batch中，有几个大小相同的特征图（通道数×H×W），在同一通道上（如图所示的红色通道），将这些红色通道上的所有像素值相加计算均值和方差，再通过均值和方差将这些红色通道里的像素值进行归一化。</p>
+<div style="display: flex; justify-content: center;"><img src="https://raw.gitmirror.com/inferiorStudent/resource-CDN/main/dl/3.4-batch-norm.svg"></div>
+<h2 id="2-2-Layer-Normalization">2.2 Layer Normalization</h2>
+<h2 id="2-3-Instance-Normalization">2.3 Instance Normalization</h2>
+<h2 id="2-4-Group-Normalization">2.4 Group Normalization</h2>
+<h1 id="3-Pytorch代码实现">3 Pytorch代码实现</h1>
+<p>BasicBlock代码实现</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">BasicBlock</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, in_channels, out_channels, stride=<span class="hljs-number">1</span>, down_smaple=<span class="hljs-literal">None</span></span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br>        <span class="hljs-comment"># conv2: stride=1, conv3~5: stride=2</span><br>        <span class="hljs-variable language_">self</span>.conv1 = nn.Conv2d(in_channels, out_channels, kernel_size=<span class="hljs-number">3</span>, stride=stride, padding=<span class="hljs-number">1</span>, bias=<span class="hljs-literal">False</span>)<br>        <span class="hljs-variable language_">self</span>.bn1 = nn.BatchNorm2d(out_channels)<br><br>        <span class="hljs-comment"># 保证输入输出的特征图尺寸不变</span><br>        <span class="hljs-variable language_">self</span>.conv2 = nn.Conv2d(in_channels, out_channels, kernel_size=<span class="hljs-number">3</span>, stride=<span class="hljs-number">1</span>, padding=<span class="hljs-number">1</span>, bias=<span class="hljs-literal">False</span>)<br>        <span class="hljs-variable language_">self</span>.bn2 = nn.BatchNorm2d(out_channels)<br><br>        <span class="hljs-variable language_">self</span>.relu = nn.ReLU(inplace=<span class="hljs-literal">True</span>)<br>        <span class="hljs-variable language_">self</span>.down_sample = down_smaple<br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x</span>):<br>        identity = x <span class="hljs-comment"># 捷径</span><br>        out = <span class="hljs-variable language_">self</span>.conv1(x)<br>        out = <span class="hljs-variable language_">self</span>.bn1(out)<br>        out = <span class="hljs-variable language_">self</span>.relu(out)<br><br>        out = <span class="hljs-variable language_">self</span>.conv2(out)<br>        out = <span class="hljs-variable language_">self</span>.bn2(out)<br><br>        <span class="hljs-keyword">if</span> <span class="hljs-variable language_">self</span>.down_sample <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:<br>            identity = <span class="hljs-variable language_">self</span>.down_sample(identity)<br>        <br>        out += identity<br>        out = <span class="hljs-variable language_">self</span>.relu(out)<br><br>        <span class="hljs-keyword">return</span> out<br></code></pre></td></tr></table></figure>
+<p>Bottleneck代码实现</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Bottleneck</span>(nn.Module):<br>    expansion = <span class="hljs-number">4</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, in_channels, out_channels, stride=<span class="hljs-number">1</span>, down_sample=<span class="hljs-literal">None</span></span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br>        mid_channels = out_channels<br><br>        <span class="hljs-variable language_">self</span>.conv1 = nn.Conv2d(in_channels, mid_channels, kernel_size=<span class="hljs-number">1</span>, bias=<span class="hljs-literal">False</span>)<br>        <span class="hljs-variable language_">self</span>.bn1 = nn.BatchNorm2d(mid_channels)<br><br>        <span class="hljs-variable language_">self</span>.conv2 = nn.Conv2d(mid_channels, mid_channels, kernel_size=<span class="hljs-number">3</span>, stride=stride, padding=<span class="hljs-number">1</span>, bias=<span class="hljs-literal">False</span>)<br>        <span class="hljs-variable language_">self</span>.bn2 = nn.BatchNorm2d(mid_channels)<br><br>        <span class="hljs-variable language_">self</span>.conv3 = nn.Conv2d(mid_channels, out_channels * <span class="hljs-variable language_">self</span>.expansion, kernel_size=<span class="hljs-number">1</span>, bias=<span class="hljs-literal">False</span>)<br>        <span class="hljs-variable language_">self</span>.bn3 = nn.BatchNorm2d(out_channels * <span class="hljs-variable language_">self</span>.expansion)<br><br>        <span class="hljs-variable language_">self</span>.relu = nn.ReLU(inplace=<span class="hljs-literal">True</span>)<br>        <span class="hljs-variable language_">self</span>.down_sample = down_sample<br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x</span>):<br>        identity = x<br><br>        out = <span class="hljs-variable language_">self</span>.conv1(x)<br>        out = <span class="hljs-variable language_">self</span>.bn1(out)<br>        out = <span class="hljs-variable language_">self</span>.relu(out)<br><br>        out = <span class="hljs-variable language_">self</span>.conv2(x)<br>        out = <span class="hljs-variable language_">self</span>.bn2(out)<br>        out = <span class="hljs-variable language_">self</span>.relu(out)<br><br>        out = <span class="hljs-variable language_">self</span>.conv3(x)<br>        out = <span class="hljs-variable language_">self</span>.bn3(out)<br><br>        <span class="hljs-keyword">if</span> <span class="hljs-variable language_">self</span>.down_sample <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:<br>            identity = <span class="hljs-variable language_">self</span>.down_sample(x)<br><br>        out += identity<br>        out = <span class="hljs-variable language_">self</span>.relu(out)<br><br>        <span class="hljs-keyword">return</span> out<br></code></pre></td></tr></table></figure>
+    </div>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const codeBlocks = document.querySelectorAll('figure.highlight');
+    
+        codeBlocks.forEach(block => {
+            // 1. 获取语言标签
+            const lang = block.classList.contains('highlight') ? 
+                         block.classList[1] : '';
+    
+            // 2. 创建一个容器来包裹语言标签和复制按钮
+            const toolbar = document.createElement('div');
+            toolbar.className = 'highlight-toolbar';
+    
+            // 3. 创建语言标签
+            if (lang) {
+                const langLabel = document.createElement('span');
+                langLabel.className = 'highlight-lang';
+                langLabel.textContent = lang.toUpperCase();
+                toolbar.appendChild(langLabel);
+            }
+    
+            // 4. 创建复制按钮
+            const copyButton = document.createElement('button');
+            copyButton.className = 'highlight-copy-btn';
+            copyButton.textContent = '复制';
+            
+            copyButton.addEventListener('click', () => {
+                // 优先选择 .code 元素（针对有行号的表格），如果没有则选择 pre 元素
+                const codeElement = block.querySelector('.code') || block.querySelector('pre');
+                if (codeElement) {
+                    navigator.clipboard.writeText(codeElement.textContent).then(() => {
+                        copyButton.textContent = '已复制!';
+                        setTimeout(() => {
+                            copyButton.textContent = '复制';
+                        }, 2000);
+                    }).catch(err => {
+                        console.error('复制失败: ', err);
+                    });
+                }
+            });
+            toolbar.appendChild(copyButton);
+    
+            // 5. 将工具栏插入到代码块中
+            block.appendChild(toolbar);
+        });
+    });
+</script>
+  </article>
+</div>
+
+    </div>
+    
+<script src="/js/script.js"></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>

@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3.1 卷积神经网络原理 | Hexo</title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          TeX: {
+            extensions: ["amsmath.js", "cancel.js"],
+          }
+        });
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <div class="container">
+        <header class="post-navbar">
+    <a href="/" class="nav-left">
+        <img src="/img/avatar.jpg" alt="Avatar" class="nav-avatar">
+        <span class="nav-title">上下求索</span>
+    </a>
+
+    <div class="nav-right">
+        <div class="nav-item search-trigger">
+            <img src="/img/icons/search.svg" alt="Search" class="search-icon">
+            <span>请输入关键词搜索...</span>
+        </div>
+
+        <a href="/notes/" class="nav-link">笔记导航</a>
+
+        <div class="nav-item theme-switcher">
+            <img src="/img/icons/sun.svg" alt="Sun" class="sun-icon">
+            <img src="/img/icons/moon.svg" alt="Moon" class="moon-icon">
+        </div>
+    </div>
+</header>
+
+<div id="search-modal" class="modal-overlay" style="display: none;">
+    <div class="modal-content">
+        <input type="text" id="search-input" placeholder="输入关键字搜索...">
+        <div id="search-results"></div>
+    </div>
+</div>
+<div class="post-layout">
+  <aside class="post-sidebar">
+    
+    
+      
+      <nav>
+          <div class="sidebar-top">
+              <!-- <a href="/" class="back-to-home-link" style="display: flex; align-items: center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 18l-6-6l6-6"/></svg>
+                  <span>返回首页</span>
+              </a> -->
+              <h3>深度学习</h3>
+          </div>
+          <ul>
+              
+                  <li class="sidebar-group">
+                      <details open>
+                          <summary>
+                              <svg class="sidebar-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="m15.5 12.001l-5.75 5.75c-.15.15-.325.225-.525.225s-.375-.075-.525-.225c-.3-.3-.3-.775 0-1.075l5.225-5.25l-5.225-5.25c-.3-.3-.3-.775 0-1.075s.775-.3 1.075 0l5.75 5.75c.15.15.225.325.225.525s-.075.375-.225.525Z"/></svg>
+                              <span class="sidebar-summary-text">1 机器学习</span>
+                          </summary>
+                          <div class="details-content">
+                              <ul>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/1.1-%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/">1.1 评价指标</a>
+                                      </li>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/1.2-%E5%9B%9E%E5%BD%92%E7%AE%97%E6%B3%95/">1.2 回归算法</a>
+                                      </li>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/1.3-%E5%86%B3%E7%AD%96%E6%A0%91/">1.3 决策树</a>
+                                      </li>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/1.4-%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/">1.4 支持向量机</a>
+                                      </li>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/1.5-%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95/">1.5 聚类算法</a>
+                                      </li>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/1.6-%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF/">1.6 朴素贝叶斯</a>
+                                      </li>
+                                  
+                              </ul>
+                          </div>
+                      </details>
+                  </li>
+              
+                  <li class="sidebar-group">
+                      <details open>
+                          <summary>
+                              <svg class="sidebar-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="m15.5 12.001l-5.75 5.75c-.15.15-.325.225-.525.225s-.375-.075-.525-.225c-.3-.3-.3-.775 0-1.075l5.225-5.25l-5.225-5.25c-.3-.3-.3-.775 0-1.075s.775-.3 1.075 0l5.75 5.75c.15.15.225.325.225.525s-.075.375-.225.525Z"/></svg>
+                              <span class="sidebar-summary-text">2 深度神经网络</span>
+                          </summary>
+                          <div class="details-content">
+                              <ul>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/2.1-%E5%9B%9E%E5%BD%92/">2.1 训练回归模型</a>
+                                      </li>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/2.2-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">2.2 神经网络原理</a>
+                                      </li>
+                                  
+                              </ul>
+                          </div>
+                      </details>
+                  </li>
+              
+                  <li class="sidebar-group">
+                      <details open>
+                          <summary>
+                              <svg class="sidebar-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="m15.5 12.001l-5.75 5.75c-.15.15-.325.225-.525.225s-.375-.075-.525-.225c-.3-.3-.3-.775 0-1.075l5.225-5.25l-5.225-5.25c-.3-.3-.3-.775 0-1.075s.775-.3 1.075 0l5.75 5.75c.15.15.225.325.225.525s-.075.375-.225.525Z"/></svg>
+                              <span class="sidebar-summary-text">3 计算机视觉基础</span>
+                          </summary>
+                          <div class="details-content">
+                              <ul>
+                                  
+                                      <li class="sidebar-item active">
+                                          <a href="/notes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/3.1-CNN/">3.1 卷积神经网络原理</a>
+                                      </li>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/3.2-LeNet/">3.2 LeNet</a>
+                                      </li>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/3.3-%E5%85%B6%E4%BB%96%E7%BB%8F%E5%85%B8%E5%8D%B7%E7%A7%AF%E7%BD%91%E7%BB%9C/">3.3 经典CNN模型</a>
+                                      </li>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/3.4-ResNet/">3.4 ResNet</a>
+                                      </li>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/3.5-%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%BB%BB%E5%8A%A1/">3.5 计算机视觉任务</a>
+                                      </li>
+                                  
+                              </ul>
+                          </div>
+                      </details>
+                  </li>
+              
+                  <li class="sidebar-group">
+                      <details open>
+                          <summary>
+                              <svg class="sidebar-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="m15.5 12.001l-5.75 5.75c-.15.15-.325.225-.525.225s-.375-.075-.525-.225c-.3-.3-.3-.775 0-1.075l5.225-5.25l-5.225-5.25c-.3-.3-.3-.775 0-1.075s.775-.3 1.075 0l5.75 5.75c.15.15.225.325.225.525s-.075.375-.225.525Z"/></svg>
+                              <span class="sidebar-summary-text">4 自然语言处理</span>
+                          </summary>
+                          <div class="details-content">
+                              <ul>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/4.1-%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E4%BB%BB%E5%8A%A1/">4.1 NLP发展</a>
+                                      </li>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/4.2-%E5%88%86%E8%AF%8D/">4.2 分词</a>
+                                      </li>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/4.3-%E8%AF%8D%E5%B5%8C%E5%85%A5/">4.3 词嵌入</a>
+                                      </li>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/4.4-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%8E%9F%E7%90%86/">4.4 循环神经网络原理</a>
+                                      </li>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/4.5-LSTM%E5%8F%8A%E5%85%B6%E5%8F%98%E4%BD%93/">4.5 LSTM及其变体</a>
+                                      </li>
+                                  
+                              </ul>
+                          </div>
+                      </details>
+                  </li>
+              
+                  <li class="sidebar-group">
+                      <details open>
+                          <summary>
+                              <svg class="sidebar-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="m15.5 12.001l-5.75 5.75c-.15.15-.325.225-.525.225s-.375-.075-.525-.225c-.3-.3-.3-.775 0-1.075l5.225-5.25l-5.225-5.25c-.3-.3-.3-.775 0-1.075s.775-.3 1.075 0l5.75 5.75c.15.15.225.325.225.525s-.075.375-.225.525Z"/></svg>
+                              <span class="sidebar-summary-text">5 预训练语言模型</span>
+                          </summary>
+                          <div class="details-content">
+                              <ul>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/5.1-Transformer/">5.1 Transformer</a>
+                                      </li>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/5.2-BERT/">5.2 BERT</a>
+                                      </li>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/5.3-GPT%E7%B3%BB%E5%88%97/">5.3 GPT系列</a>
+                                      </li>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/5.4-%E5%85%B6%E4%BB%96/">5.4 其他</a>
+                                      </li>
+                                  
+                              </ul>
+                          </div>
+                      </details>
+                  </li>
+              
+          </ul>
+      </nav>
+    
+  </aside>
+
+  <article class="post-content">
+    
+      <div id="toc-container" class="toc-container collapsed">
+        <button id="toc-toggle-btn" class="toc-toggle-btn">☰</button>
+        <div class="toc-title">
+            <span>文章目录</span>
+        </div>
+        <div class="toc-list">
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="toc-text">1 基本原理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E5%8D%B7%E7%A7%AF%E8%BF%87%E7%A8%8B"><span class="toc-text">1.1 卷积过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-text">1.2 基本概念</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E9%87%8D%E6%9D%A5%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E8%AF%86%E5%88%AB"><span class="toc-text">2 重来手写数字识别</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E7%BD%91%E7%BB%9C%E6%9E%84%E5%BB%BA"><span class="toc-text">2.1 网络构建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B"><span class="toc-text">2.2 训练模型</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E7%8C%AB%E7%8B%97%E8%AF%86%E5%88%AB"><span class="toc-text">3 猫狗识别</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86"><span class="toc-text">3.1 数据处理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE%E5%83%8F%E5%A2%9E%E5%BC%BA"><span class="toc-text">图像增强</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%E7%BD%91%E7%BB%9C%E6%9E%84%E5%BB%BA"><span class="toc-text">3.2 网络构建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-%E8%AE%AD%E7%BB%83%E8%BF%9B%E9%98%B6%E2%AD%90"><span class="toc-text">3.3 训练进阶⭐</span></a></li></ol></li></ol>
+        </div>
+      </div>
+    
+
+    <h1>3.1 卷积神经网络原理</h1>
+    <!-- <div class="post-meta">
+      
+        <time class="post-date-tag" datetime="2025-08-28T06:51:39.902Z">
+            发布于: 2025-08-28
+        </time>
+      
+    </div> -->
+    <div class="post-body">
+        <p>简单的深度神经网络将图片扁平化，也就是二维矩阵转换为一个向量来处理，降低了图片相邻信息的关联性。在上一节中采用深度神经网络处理手写数字识别，最终训练100轮达到非常高的准确率，尽管如此，当图片变得非常复杂后，比如彩色图像是RGB三通道，深度神经网络的效果就没有那么显著了。</p>
+<p>为了找到图片相邻位置的语义关联，接下来引入卷积的概念。</p>
+<div style="display: flex; justify-content: center;"><img src="https://raw.gitmirror.com/inferiorStudent/resource-CDN/main/dl/3.3-Convolution.svg"></div>
+<h1 id="1-基本原理">1 基本原理</h1>
+<h2 id="1-1-卷积过程">1.1 卷积过程</h2>
+<p>卷积神经网络，Convolution Neural Network（CNN）。实际上这里的卷积和数学上的卷积根本没什么关联。</p>
+<p>如图所示，输入3通道的图片（彩色），该图片表示为C×H×W的张量（按PyTorch中的顺序来），卷积操作如下：</p>
+<ul>
+<li>每个通道都配备一个Filter（也叫做Kernel）。如图例4×4图像，3×3的过滤器（<strong>卷积核</strong>）。过滤器的中心对准1，以1为中心的3×3大小的图像区域为单位，Filter的每个位置的权重和对应图像位置的值相乘并相加得到一个值。
+<ul>
+<li>Filter的大小是奇数×奇数，因为奇数大小的正方形才有唯一中心点</li>
+</ul>
+</li>
+<li>每个通道1这个位置如上步骤操作都得到一个值，将这些1号位卷积得到的值相加，得到最终<strong>特征图</strong>的1号位值</li>
+<li>假设<strong>步长</strong>为1，那么2、3、4号位的值如第二步骤得到。一般来说步长是1.</li>
+<li>上面的一组Filter得到一张特征图，也就是通道数为1。有几组这样的Filter，输出结果就有多少个通道数</li>
+<li>每一组Filter有一个可选的bias（PyTorch默认有，如果不需要则可以设置<code>nn.Conv2d(bias=False)</code>）</li>
+</ul>
+<h2 id="1-2-基本概念">1.2 基本概念</h2>
+<ul>
+<li><strong>感受野</strong>：第一层的3×3大小的卷积核得到一个特征值，这个特征值就是第二层的“输入图片”中的一个像素值。假设步长为1，那么第二层的3×3卷积核得到第三层的一个像素值，第三层的一个像素值就有第一层5×5的视野（第三层的一个值由第一层5×5的值计算得来）。那么两层的3×3的卷积操作可以等价一层的5×5的卷积操作。</li>
+</ul>
+<div style="display: flex; justify-content: center;">
+  <img src="https://raw.gitmirror.com/inferiorStudent/resource-CDN/main/dl/3.1-receptive-field.svg">
+</div>
+<ul>
+<li><strong>padding</strong>：每次经过卷积操作，得到的下一层输入大小都会少一圈值。为了不让下一层的大小变小，上一层的输入应该填充一圈（可以填充为0，也可以根据边缘值填充），如果是3×3的卷积核，填充一圈即可。下图演示的是3×3的卷积核，0填充，步长（stride）为1的卷积过程，右侧的特征图。</li>
+</ul>
+<div style="display: flex; justify-content: center;"><img src="https://raw.gitmirror.com/inferiorStudent/resource-CDN/main/dl/3.3-conv-anime.gif"></div>
+<ul>
+<li><strong>池化</strong>Pooling：分最大池化和平均池化，就是取一个方框内的最大或平均值，目的是减小输出特征图的大小</li>
+</ul>
+<p>实际上每一个卷积核都是一个特征提取器提取某一个特征，因为生成的一个特征图是由一个（多通道的情况下是一组）卷积核生成得到的，而卷积核的参数数量只有3×3（假设大小为3×3），那么所有的特征像素点都由这9个权重计算而来。你希望抽象出多少个高级特征，就生成多少个特征图。</p>
+<p>如果是分类预测任务，你还需要将特征图展开成一维的向量，然后做一个神经网络的全连接，输出分类个数。</p>
+<blockquote>
+<p>[!INFO]</p>
+<p><strong>卷积核参数共享</strong>：</p>
+</blockquote>
+<h1 id="2-重来手写数字识别">2 重来手写数字识别</h1>
+<p>经过上面的分析，卷积在理论上似乎对图像的处理效果更好，因此我们在此搭建卷积神经网络，再来看看效果如何。注意读取图片的时候就不要转成一维向量了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">from</span> torch.utils.data <span class="hljs-keyword">import</span> Dataset, DataLoader<br><span class="hljs-keyword">from</span> torchvision <span class="hljs-keyword">import</span> datasets, transforms<br><br>transform = transforms.Compose([<br>    transforms.ToTensor(),<br>    transforms.Normalize(<span class="hljs-number">0.1307</span>, <span class="hljs-number">0.3081</span>)<br>])<br><br>train_dataset = datasets.MNIST(<br>    root=<span class="hljs-string">&#x27;./MNIST&#x27;</span>,<br>    train=<span class="hljs-literal">True</span>,<br>    download=<span class="hljs-literal">True</span>,<br>    transform=transform<br>)<br>test_dataset = datasets.MNIST(<br>    root=<span class="hljs-string">&#x27;./MNIST&#x27;</span>,<br>    train=<span class="hljs-literal">False</span>,<br>    download=<span class="hljs-literal">True</span>,<br>    transform=transform<br>)<br><br>train_loader = DataLoader(train_dataset, batch_size=<span class="hljs-number">64</span>, shuffle=<span class="hljs-literal">True</span>)<br>test_loader = DataLoader(test_dataset, batch_size=<span class="hljs-number">64</span>)<br><br>device = torch.device(<span class="hljs-string">&quot;cuda&quot;</span> <span class="hljs-keyword">if</span> torch.cuda.is_available() <span class="hljs-keyword">else</span> <span class="hljs-string">&quot;cpu&quot;</span>)<br></code></pre></td></tr></table></figure>
+<h2 id="2-1-网络构建">2.1 网络构建</h2>
+<p>卷积层用ReLU激活，池化层都是最大池化。</p>
+<div style="display: flex; justify-content: center;"><img src="https://raw.gitmirror.com/inferiorStudent/resource-CDN/main/dl/3.3-nn-conv.svg"></div>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">mnistCNN</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br>        <span class="hljs-variable language_">self</span>.model = nn.Sequential(<br>            nn.Conv2d(<span class="hljs-number">1</span>, <span class="hljs-number">8</span>, kernel_size=<span class="hljs-number">3</span>, padding=<span class="hljs-number">1</span>),<br>            nn.ReLU(),<br>            nn.MaxPool2d(kernel_size=<span class="hljs-number">2</span>, stride=<span class="hljs-number">2</span>),<br>            nn.Conv2d(<span class="hljs-number">8</span>, <span class="hljs-number">16</span>, kernel_size=<span class="hljs-number">3</span>, padding=<span class="hljs-number">1</span>),<br>            nn.ReLU(),<br>            nn.MaxPool2d(kernel_size=<span class="hljs-number">2</span>, stride=<span class="hljs-number">2</span>),<br>            nn.Conv2d(<span class="hljs-number">16</span>, <span class="hljs-number">32</span>, kernel_size=<span class="hljs-number">3</span>),<br>            nn.Flatten(),<br>            nn.Linear(<span class="hljs-number">800</span>, <span class="hljs-number">64</span>),<br>            nn.Linear(<span class="hljs-number">64</span>, <span class="hljs-number">10</span>)<br>        )<br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x</span>):<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>.model(x)<br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>padding=1</code>的意思是上下左右各填充一圈0</li>
+</ul>
+<h2 id="2-2-训练模型">2.2 训练模型</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs python">model = mnistCNN().to(device)<br>criterion = nn.CrossEntropyLoss()<br>optimizer = torch.optim.AdamW(model.parameters(), lr=<span class="hljs-number">0.001</span>)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">train</span>(<span class="hljs-params">model, device, train_loader, optimizer, criterion</span>):<br>    model.train()<br>    total_loss = <span class="hljs-number">0.0</span><br>    <span class="hljs-keyword">for</span> X, y <span class="hljs-keyword">in</span> train_loader:<br>        X, y = X.to(device), y.to(device)<br>        optimizer.zero_grad()<br>        y_pred = model(X)<br>        loss = criterion(y_pred, y)<br>        loss.backward()<br>        optimizer.step()<br>        total_loss += loss.item()<br>    <span class="hljs-keyword">return</span> total_loss / <span class="hljs-built_in">len</span>(train_loader)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">eval</span>(<span class="hljs-params">model, device, test_loader, criterion</span>):<br>    model.<span class="hljs-built_in">eval</span>()<br>    total_loss = <span class="hljs-number">0.0</span><br>    correct = <span class="hljs-number">0</span><br>    num = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">with</span> torch.no_grad():<br>        <span class="hljs-keyword">for</span> X, y <span class="hljs-keyword">in</span> test_loader:<br>            X, y = X.to(device), y.to(device)<br>            y_pred = model(X)<br>            loss = criterion(y_pred, y)<br>            total_loss += loss.item()<br>            pred_label = y_pred.argmax(dim=<span class="hljs-number">1</span>, keepdim=<span class="hljs-literal">True</span>)<br>            correct += pred_label.eq(y.view_as(pred_label)).<span class="hljs-built_in">sum</span>().item()<br>            num += X.shape[<span class="hljs-number">0</span>]<br>    <br>    <span class="hljs-keyword">return</span> total_loss / <span class="hljs-built_in">len</span>(test_loader), correct / num<br><br>train_losses = []<br>test_losses = []<br>acc = []<br><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">100</span>):<br>    train_loss = train(model, device, train_loader, optimizer, criterion)<br>    train_losses.append(train_loss)<br>    val_loss, accuracy = <span class="hljs-built_in">eval</span>(model, device, test_loader, criterion)<br>    acc.append(accuracy)<br>    <span class="hljs-keyword">if</span> epoch % <span class="hljs-number">5</span> == <span class="hljs-number">0</span>:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;<span class="hljs-subst">&#123;epoch + <span class="hljs-number">1</span>&#125;</span> / 100: train loss = <span class="hljs-subst">&#123;train_loss: <span class="hljs-number">.4</span>f&#125;</span>, val loss = <span class="hljs-subst">&#123;val_loss: <span class="hljs-number">.4</span>f&#125;</span>, acc = <span class="hljs-subst">&#123;accuracy: <span class="hljs-number">.4</span>f&#125;</span>&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<div style="display: flex; justify-content: center;"><img src="https://raw.gitmirror.com/inferiorStudent/resource-CDN/main/dl/3.3-conv-digits-figure.svg"></div>
+<p>可以发现卷积一次就能达到98%的正确率，而后续无论训练多少轮，正确率很难再有提升。</p>
+<h1 id="3-猫狗识别">3 猫狗识别</h1>
+<p>从Kaggel上下载数据集：<a target="_blank" rel="noopener" href="https://www.kaggle.com/datasets/shaunthesheep/microsoft-catsvsdogs-dataset">猫狗识别数据集</a>。</p>
+<h2 id="3-1-数据处理">3.1 数据处理</h2>
+<p>图像增强采用rethinkfun的处理方式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn<br><span class="hljs-keyword">import</span> torch.optim <span class="hljs-keyword">as</span> optim<br><span class="hljs-keyword">from</span> torch.utils.data <span class="hljs-keyword">import</span> DataLoader, Dataset, random_split<br><span class="hljs-keyword">from</span> torchvision <span class="hljs-keyword">import</span> transforms<br><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image<br><span class="hljs-keyword">from</span> tqdm <span class="hljs-keyword">import</span> tqdm<br><span class="hljs-keyword">import</span> torch.nn.functional <span class="hljs-keyword">as</span> F<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">CatDogDataset</span>(<span class="hljs-title class_ inherited__">Dataset</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, file_list, transform=<span class="hljs-literal">None</span></span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br>        <span class="hljs-variable language_">self</span>.file_list = file_list<br>        <span class="hljs-variable language_">self</span>.transform = transform<br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__len__</span>(<span class="hljs-params">self,</span>):<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(<span class="hljs-variable language_">self</span>.file_list)<br>    <br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__getitem__</span>(<span class="hljs-params">self, idx</span>):<br>        img_path, label = <span class="hljs-variable language_">self</span>.file_list[idx]<br>        <span class="hljs-keyword">try</span>:<br>            img = Image.<span class="hljs-built_in">open</span>(img_path).convert(<span class="hljs-string">&#x27;RGB&#x27;</span>)<br>        <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:<br>            <span class="hljs-comment"># 自动跳过被损坏的文件</span><br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Skip an image: <span class="hljs-subst">&#123;e&#125;</span>&quot;</span>)<br>            <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>.__getitem__((idx + <span class="hljs-number">1</span>) % <span class="hljs-built_in">len</span>(<span class="hljs-variable language_">self</span>))<br>        <span class="hljs-keyword">if</span> <span class="hljs-variable language_">self</span>.transform:<br>            img = <span class="hljs-variable language_">self</span>.transform(img)<br>        <br>        <span class="hljs-keyword">return</span> img, label<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">prepare_dataset</span>(<span class="hljs-params">data_dir</span>):<br>    all_files = []<br>    cls_map = &#123;<span class="hljs-string">&#x27;Cat&#x27;</span>: <span class="hljs-number">0</span>, <span class="hljs-string">&#x27;Dog&#x27;</span>:<span class="hljs-number">1</span>&#125;<br>    <span class="hljs-keyword">for</span> cls_name <span class="hljs-keyword">in</span> cls_map.keys():<br>        cls_dir = os.path.join(data_dir, cls_name)<br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> os.path.isdir(cls_dir):<br>            <span class="hljs-keyword">raise</span> FileNotFoundError(<span class="hljs-string">f&quot;Dir not found: <span class="hljs-subst">&#123;cls_dir&#125;</span>&quot;</span>)<br>        <span class="hljs-keyword">for</span> img_name <span class="hljs-keyword">in</span> os.listdir(cls_dir):<br>            <span class="hljs-keyword">if</span> img_name.lower().endswith((<span class="hljs-string">&#x27;.png&#x27;</span>, <span class="hljs-string">&#x27;.jpg&#x27;</span>, <span class="hljs-string">&#x27;.jpeg&#x27;</span>)):<br>                all_files.append((os.path.join(cls_dir, img_name), cls_map[cls_name]))<br>    <span class="hljs-keyword">return</span> all_files<br></code></pre></td></tr></table></figure>
+<h3 id="图像增强">图像增强</h3>
+<p>未来完善</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs python">train_transform = transforms.Compose([<br>    transforms.Resize((<span class="hljs-number">256</span>, <span class="hljs-number">256</span>)),<br>    transforms.RandomCrop(size=(<span class="hljs-number">224</span>, <span class="hljs-number">224</span>)),<br>    transforms.RandomHorizontalFlip(p=<span class="hljs-number">0.5</span>),<br>    transforms.ColorJitter(<br>        brightness=<span class="hljs-number">0.5</span>,<br>        contrast=<span class="hljs-number">0.5</span>,<br>        saturation=<span class="hljs-number">0.5</span>,<br>        hue=<span class="hljs-number">0.1</span><br>    ),<br>    transforms.RandomRotation(degrees=<span class="hljs-number">30</span>),<br>    transforms.ToTensor(),<br>    transforms.Normalize([<span class="hljs-number">0.485</span>, <span class="hljs-number">0.456</span>, <span class="hljs-number">0.406</span>], [<span class="hljs-number">0.229</span>, <span class="hljs-number">0.224</span>, <span class="hljs-number">0.225</span>])<br>])<br><br>val_transform = transforms.Compose([<br>    transforms.Resize((<span class="hljs-number">224</span>, <span class="hljs-number">224</span>)),<br>    transforms.ToTensor(),<br>    transforms.Normalize([<span class="hljs-number">0.485</span>, <span class="hljs-number">0.456</span>, <span class="hljs-number">0.406</span>], [<span class="hljs-number">0.229</span>, <span class="hljs-number">0.224</span>, <span class="hljs-number">0.225</span>])<br>])<br><br>path = <span class="hljs-string">&#x27;./&#x27;</span><br>all_files = prepare_dataset(os.path.join(path, <span class="hljs-string">&#x27;PetImages&#x27;</span>))<br>train_size = <span class="hljs-built_in">int</span>(<span class="hljs-built_in">len</span>(all_files) * <span class="hljs-number">0.8</span>)<br>val_size = <span class="hljs-built_in">len</span>(all_files) - train_size<br>torch.manual_seed(<span class="hljs-number">42</span>)<br>train_files, val_files = random_split(all_files, [train_size, val_size])<br><br>train_dataset = CatDogDataset(train_files, transform=train_transform)<br>val_dataset = CatDogDataset(val_files, transform=val_transform)<br><br>train_loader = DataLoader(train_dataset, batch_size=<span class="hljs-number">64</span>, shuffle=<span class="hljs-literal">True</span>)<br>val_loader = DataLoader(val_dataset, batch_size=<span class="hljs-number">64</span>)<br></code></pre></td></tr></table></figure>
+<h2 id="3-2-网络构建">3.2 网络构建</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">simpleCNN</span>(nn.Module):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-built_in">super</span>().__init__()<br>        <span class="hljs-variable language_">self</span>.model = nn.Sequential(<br>            nn.Conv2d(<span class="hljs-number">3</span>, <span class="hljs-number">16</span>, kernel_size=<span class="hljs-number">3</span>, padding=<span class="hljs-number">1</span>),    <span class="hljs-comment"># 16x224x224</span><br>            nn.ReLU(),<br>            nn.MaxPool2d(kernel_size=<span class="hljs-number">2</span>, stride=<span class="hljs-number">2</span>),         <span class="hljs-comment"># 16x112x112</span><br>            nn.Conv2d(<span class="hljs-number">16</span>, <span class="hljs-number">32</span>, kernel_size=<span class="hljs-number">3</span>, padding=<span class="hljs-number">1</span>),   <span class="hljs-comment"># 32x112x112</span><br>            nn.ReLU(),<br>            nn.MaxPool2d(kernel_size=<span class="hljs-number">2</span>, stride=<span class="hljs-number">2</span>),         <span class="hljs-comment"># 32x56x56</span><br>            nn.Flatten(),<br>            nn.Linear(<span class="hljs-number">32</span> * <span class="hljs-number">56</span> * <span class="hljs-number">56</span>, <span class="hljs-number">128</span>),<br>            nn.Linear(<span class="hljs-number">128</span>, <span class="hljs-number">2</span>)<br>        )<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x</span>):<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">self</span>.model(x)<br><br>device = torch.device(<span class="hljs-string">&quot;cuda&quot;</span> <span class="hljs-keyword">if</span> torch.cuda.is_available() <span class="hljs-keyword">else</span> <span class="hljs-string">&quot;cpu&quot;</span>)<br>model = simpleCNN().to(device)<br>optimizer = optim.AdamW(model.parameters(), lr=<span class="hljs-number">0.001</span>)<br>criterion = nn.CrossEntropyLoss()<br></code></pre></td></tr></table></figure>
+<h2 id="3-3-训练进阶⭐">3.3 训练进阶⭐</h2>
+<p>每次训练都要手动计算loss，打印运行状态。现在，采用一个更高级的做法，使用<code>tqdm</code>来记录训练状态</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> warnings<br>warnings.filterwarnings(<span class="hljs-string">&quot;ignore&quot;</span>)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">train</span>(<span class="hljs-params">model, optimizer, criterion, train_loader, device, epoch, num_epochs</span>):<br>    model.train()<br>    train_loss = <span class="hljs-number">0.0</span><br>    train_pbar = tqdm(train_loader, desc=<span class="hljs-string">f&quot;Epoch <span class="hljs-subst">&#123;epoch + <span class="hljs-number">1</span>&#125;</span> / <span class="hljs-subst">&#123;num_epochs&#125;</span> [Training]&quot;</span>, unit=<span class="hljs-string">&quot;batch&quot;</span>)<br>    <span class="hljs-keyword">for</span> X, y <span class="hljs-keyword">in</span> train_pbar:<br>        X, y = X.to(device), y.to(device)<br>        optimizer.zero_grad()<br>        y_pred = model(X)<br>        loss = criterion(y_pred, y)<br>        loss.backward()<br>        optimizer.step()<br><br>        train_loss += loss.item()<br>        _, preds = torch.<span class="hljs-built_in">max</span>(y_pred, <span class="hljs-number">1</span>)<br>        train_pbar.set_postfix(loss=loss.item(), acc=torch.<span class="hljs-built_in">sum</span>(preds == y.data).item() / X.size(<span class="hljs-number">0</span>))<br>    <span class="hljs-keyword">return</span> train_loss / <span class="hljs-built_in">len</span>(train_loader)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">val</span>(<span class="hljs-params">model, criterion, val_loader, device, epoch, num_epochs</span>):<br>    model.<span class="hljs-built_in">eval</span>()<br>    correct = <span class="hljs-number">0</span><br>    val_loss = <span class="hljs-number">0.0</span><br>    num = <span class="hljs-number">0</span><br>    val_pbar = tqdm(val_loader, desc=<span class="hljs-string">f&quot;Epoch <span class="hljs-subst">&#123;epoch + <span class="hljs-number">1</span>&#125;</span> / <span class="hljs-subst">&#123;num_epochs&#125;</span> [Validation]&quot;</span>, unit=<span class="hljs-string">&quot;batch&quot;</span>)<br>    <span class="hljs-keyword">with</span> torch.no_grad():<br>        <span class="hljs-keyword">for</span> X, y <span class="hljs-keyword">in</span> val_pbar:<br>            X, y = X.to(device), y.to(device)<br>            y_pred = model(X)<br>            loss = criterion(y_pred, y)<br>            val_loss += loss.item()<br>            num += X.shape[<span class="hljs-number">0</span>]<br>            _, preds = torch.<span class="hljs-built_in">max</span>(y_pred, <span class="hljs-number">1</span>)<br>            correct += torch.<span class="hljs-built_in">sum</span>(preds == y.data).item()<br>            val_pbar.set_postfix(loss=loss.item(), acc=torch.<span class="hljs-built_in">sum</span>(preds == y.data).item() / X.size(<span class="hljs-number">0</span>))<br>    <span class="hljs-keyword">return</span> val_loss / <span class="hljs-built_in">len</span>(val_loader), correct / num<br><br>train_loss = []<br>val_loss = []<br>acc = []<br>num_epochs = <span class="hljs-number">15</span><br><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(num_epochs):<br>    tloss = train(model, optimizer, criterion, train_loader, device, epoch, num_epochs)<br>    train_loss.append(tloss)<br>    vloss, accuracy = val(model, criterion, val_loader, device, epoch, num_epochs)<br>    acc.append(accuracy)<br>    val_loss.append(vloss)<br></code></pre></td></tr></table></figure>
+<p>你可以看到如下的训练过程，一轮训练和评估</p>
+<div style="display: flex; justify-content: center;"><img src="https://raw.gitmirror.com/inferiorStudent/resource-CDN/main/dl/3.3-cats-dogs-training.png"></div>
+<p>最后画出损失变化曲线</p>
+<div style="display: flex; justify-content: center;"><img src="https://raw.gitmirror.com/inferiorStudent/resource-CDN/main/dl/3.3-cats-dogs-loss.svg"></div>
+<p>由于batch大小设置的是64，实际上非常小，导致GPU没有被充分利用，从而训练时间非常长，使用Kaggle的免费GPU用了将近一个小时，这里因此就只训练15个epoch。你训练的时候可以增大batch的大小。</p>
+
+    </div>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const codeBlocks = document.querySelectorAll('figure.highlight');
+    
+        codeBlocks.forEach(block => {
+            // 1. 获取语言标签
+            const lang = block.classList.contains('highlight') ? 
+                         block.classList[1] : '';
+    
+            // 2. 创建一个容器来包裹语言标签和复制按钮
+            const toolbar = document.createElement('div');
+            toolbar.className = 'highlight-toolbar';
+    
+            // 3. 创建语言标签
+            if (lang) {
+                const langLabel = document.createElement('span');
+                langLabel.className = 'highlight-lang';
+                langLabel.textContent = lang.toUpperCase();
+                toolbar.appendChild(langLabel);
+            }
+    
+            // 4. 创建复制按钮
+            const copyButton = document.createElement('button');
+            copyButton.className = 'highlight-copy-btn';
+            copyButton.textContent = '复制';
+            
+            copyButton.addEventListener('click', () => {
+                // 优先选择 .code 元素（针对有行号的表格），如果没有则选择 pre 元素
+                const codeElement = block.querySelector('.code') || block.querySelector('pre');
+                if (codeElement) {
+                    navigator.clipboard.writeText(codeElement.textContent).then(() => {
+                        copyButton.textContent = '已复制!';
+                        setTimeout(() => {
+                            copyButton.textContent = '复制';
+                        }, 2000);
+                    }).catch(err => {
+                        console.error('复制失败: ', err);
+                    });
+                }
+            });
+            toolbar.appendChild(copyButton);
+    
+            // 5. 将工具栏插入到代码块中
+            block.appendChild(toolbar);
+        });
+    });
+</script>
+  </article>
+</div>
+
+    </div>
+    
+<script src="/js/script.js"></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>

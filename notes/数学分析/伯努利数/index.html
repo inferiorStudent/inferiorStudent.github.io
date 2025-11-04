@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>伯努利数 | Hexo</title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          TeX: {
+            extensions: ["amsmath.js", "cancel.js"],
+          }
+        });
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <div class="container">
+        <header class="post-navbar">
+    <a href="/" class="nav-left">
+        <img src="/img/avatar.jpg" alt="Avatar" class="nav-avatar">
+        <span class="nav-title">上下求索</span>
+    </a>
+
+    <div class="nav-right">
+        <div class="nav-item search-trigger">
+            <img src="/img/icons/search.svg" alt="Search" class="search-icon">
+            <span>请输入关键词搜索...</span>
+        </div>
+
+        <a href="/notes/" class="nav-link">笔记导航</a>
+
+        <div class="nav-item theme-switcher">
+            <img src="/img/icons/sun.svg" alt="Sun" class="sun-icon">
+            <img src="/img/icons/moon.svg" alt="Moon" class="moon-icon">
+        </div>
+    </div>
+</header>
+
+<div id="search-modal" class="modal-overlay" style="display: none;">
+    <div class="modal-content">
+        <input type="text" id="search-input" placeholder="输入关键字搜索...">
+        <div id="search-results"></div>
+    </div>
+</div>
+<div class="post-layout">
+  <aside class="post-sidebar">
+    
+    
+      
+      <nav>
+          <div class="sidebar-top">
+              <!-- <a href="/" class="back-to-home-link" style="display: flex; align-items: center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 18l-6-6l6-6"/></svg>
+                  <span>返回首页</span>
+              </a> -->
+              <h3>数学分析</h3>
+          </div>
+          <ul>
+              
+                  <li class="sidebar-group">
+                      <details open>
+                          <summary>
+                              <svg class="sidebar-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="m15.5 12.001l-5.75 5.75c-.15.15-.325.225-.525.225s-.375-.075-.525-.225c-.3-.3-.3-.775 0-1.075l5.225-5.25l-5.225-5.25c-.3-.3-.3-.775 0-1.075s.775-.3 1.075 0l5.75 5.75c.15.15.225.325.225.525s-.075.375-.225.525Z"/></svg>
+                              <span class="sidebar-summary-text">0 微积分杂谈</span>
+                          </summary>
+                          <div class="details-content">
+                              <ul>
+                                  
+                                      <li class="sidebar-item active">
+                                          <a href="/notes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/%E4%BC%AF%E5%8A%AA%E5%88%A9%E6%95%B0/">伯努利数</a>
+                                      </li>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0-%E7%9F%A9%E9%98%B5/">矩阵</a>
+                                      </li>
+                                  
+                              </ul>
+                          </div>
+                      </details>
+                  </li>
+              
+          </ul>
+      </nav>
+    
+  </aside>
+
+  <article class="post-content">
+    
+
+    <h1>伯努利数</h1>
+    <!-- <div class="post-meta">
+      
+        <time class="post-date-tag" datetime="2025-08-18T13:17:56.860Z">
+            发布于: 2025-08-18
+        </time>
+      
+    </div> -->
+    <div class="post-body">
+        <h1 id="1-伯努利数">1 伯努利数</h1>
+<h1 id="2-高幂求和">2 高幂求和</h1>
+
+    </div>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const codeBlocks = document.querySelectorAll('figure.highlight');
+    
+        codeBlocks.forEach(block => {
+            // 1. 获取语言标签
+            const lang = block.classList.contains('highlight') ? 
+                         block.classList[1] : '';
+    
+            // 2. 创建一个容器来包裹语言标签和复制按钮
+            const toolbar = document.createElement('div');
+            toolbar.className = 'highlight-toolbar';
+    
+            // 3. 创建语言标签
+            if (lang) {
+                const langLabel = document.createElement('span');
+                langLabel.className = 'highlight-lang';
+                langLabel.textContent = lang.toUpperCase();
+                toolbar.appendChild(langLabel);
+            }
+    
+            // 4. 创建复制按钮
+            const copyButton = document.createElement('button');
+            copyButton.className = 'highlight-copy-btn';
+            copyButton.textContent = '复制';
+            
+            copyButton.addEventListener('click', () => {
+                // 优先选择 .code 元素（针对有行号的表格），如果没有则选择 pre 元素
+                const codeElement = block.querySelector('.code') || block.querySelector('pre');
+                if (codeElement) {
+                    navigator.clipboard.writeText(codeElement.textContent).then(() => {
+                        copyButton.textContent = '已复制!';
+                        setTimeout(() => {
+                            copyButton.textContent = '复制';
+                        }, 2000);
+                    }).catch(err => {
+                        console.error('复制失败: ', err);
+                    });
+                }
+            });
+            toolbar.appendChild(copyButton);
+    
+            // 5. 将工具栏插入到代码块中
+            block.appendChild(toolbar);
+        });
+    });
+</script>
+  </article>
+</div>
+
+    </div>
+    
+<script src="/js/script.js"></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>

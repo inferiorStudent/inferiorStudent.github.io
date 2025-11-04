@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1.1 预训练 | Hexo</title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          TeX: {
+            extensions: ["amsmath.js", "cancel.js"],
+          }
+        });
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <div class="container">
+        <header class="post-navbar">
+    <a href="/" class="nav-left">
+        <img src="/img/avatar.jpg" alt="Avatar" class="nav-avatar">
+        <span class="nav-title">上下求索</span>
+    </a>
+
+    <div class="nav-right">
+        <div class="nav-item search-trigger">
+            <img src="/img/icons/search.svg" alt="Search" class="search-icon">
+            <span>请输入关键词搜索...</span>
+        </div>
+
+        <a href="/notes/" class="nav-link">笔记导航</a>
+
+        <div class="nav-item theme-switcher">
+            <img src="/img/icons/sun.svg" alt="Sun" class="sun-icon">
+            <img src="/img/icons/moon.svg" alt="Moon" class="moon-icon">
+        </div>
+    </div>
+</header>
+
+<div id="search-modal" class="modal-overlay" style="display: none;">
+    <div class="modal-content">
+        <input type="text" id="search-input" placeholder="输入关键字搜索...">
+        <div id="search-results"></div>
+    </div>
+</div>
+<div class="post-layout">
+  <aside class="post-sidebar">
+    
+    
+      
+      <nav>
+          <div class="sidebar-top">
+              <!-- <a href="/" class="back-to-home-link" style="display: flex; align-items: center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 18l-6-6l6-6"/></svg>
+                  <span>返回首页</span>
+              </a> -->
+              <h3>大语言模型</h3>
+          </div>
+          <ul>
+              
+                  <li class="sidebar-group">
+                      <details open>
+                          <summary>
+                              <svg class="sidebar-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="m15.5 12.001l-5.75 5.75c-.15.15-.325.225-.525.225s-.375-.075-.525-.225c-.3-.3-.3-.775 0-1.075l5.225-5.25l-5.225-5.25c-.3-.3-.3-.775 0-1.075s.775-.3 1.075 0l5.75 5.75c.15.15.225.325.225.525s-.075.375-.225.525Z"/></svg>
+                              <span class="sidebar-summary-text">1 强化学习</span>
+                          </summary>
+                          <div class="details-content">
+                              <ul>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/1.1-%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8/">1.1 Q-Learning</a>
+                                      </li>
+                                  
+                              </ul>
+                          </div>
+                      </details>
+                  </li>
+              
+                  <li class="sidebar-group">
+                      <details open>
+                          <summary>
+                              <svg class="sidebar-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="m15.5 12.001l-5.75 5.75c-.15.15-.325.225-.525.225s-.375-.075-.525-.225c-.3-.3-.3-.775 0-1.075l5.225-5.25l-5.225-5.25c-.3-.3-.3-.775 0-1.075s.775-.3 1.075 0l5.75 5.75c.15.15.225.325.225.525s-.075.375-.225.525Z"/></svg>
+                              <span class="sidebar-summary-text">2 构建一个大模型</span>
+                          </summary>
+                          <div class="details-content">
+                              <ul>
+                                  
+                                      <li class="sidebar-item active">
+                                          <a href="/notes/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/2.1-%E5%A4%A7%E6%A8%A1%E5%9E%8B%E9%A2%84%E8%AE%AD%E7%BB%83/">1.1 预训练</a>
+                                      </li>
+                                  
+                              </ul>
+                          </div>
+                      </details>
+                  </li>
+              
+                  <li class="sidebar-group">
+                      <details open>
+                          <summary>
+                              <svg class="sidebar-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="m15.5 12.001l-5.75 5.75c-.15.15-.325.225-.525.225s-.375-.075-.525-.225c-.3-.3-.3-.775 0-1.075l5.225-5.25l-5.225-5.25c-.3-.3-.3-.775 0-1.075s.775-.3 1.075 0l5.75 5.75c.15.15.225.325.225.525s-.075.375-.225.525Z"/></svg>
+                              <span class="sidebar-summary-text">3 应用开发</span>
+                          </summary>
+                          <div class="details-content">
+                              <ul>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/3.1-LangChain/">3.1 LangChain简介</a>
+                                      </li>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/3.2-RAG/">3.2 RAG</a>
+                                      </li>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/notes/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/3.3-Agent/">3.3 Agent</a>
+                                      </li>
+                                  
+                              </ul>
+                          </div>
+                      </details>
+                  </li>
+              
+          </ul>
+      </nav>
+    
+  </aside>
+
+  <article class="post-content">
+    
+
+    <h1>1.1 预训练</h1>
+    <!-- <div class="post-meta">
+      
+        <time class="post-date-tag" datetime="2025-08-18T16:00:00.000Z">
+            发布于: 2025-08-19
+        </time>
+      
+    </div> -->
+    <div class="post-body">
+        <p>预训练：从零开始的大模型训练，所有的参数都是随机初始化。这需要大量的语料、显卡以及时间才能训练出一个不错的模型。通常情况下，我们都是在开源的已经预训练好的大模型的基础上，针对某一特定的领域来加强训练，提升通用模型在特定领域的知识和能力。</p>
+<h1 id="1-大模型工具transformers">1 大模型工具transformers</h1>
+<p>transformers是huggingface🤗开发的自然语言处理库，其中有很多大模型开发所需要的类</p>
+<h2 id="1-1-模型和分词器的加载与保存">1.1 模型和分词器的加载与保存</h2>
+<ul>
+<li>自助分词器<code>AutoTokenizer</code>，用统一的接口来加载预训练模型的分词器，根据模型名称自动匹配对应的模型分词器。以bert中文分词为例
+<ul>
+<li><code>from_pretrained</code>：根据模型名称或本地路径创建AutoTokenizer的实例，加载对应的分词器。根据模型名称从网上下载，在Windows操作系统下<strong>默认</strong>下载路径<code>~/.cache/huggingface/transformers/</code>。想要改变下载路径，修改环境变量即可：<code>os.environ[&quot;HF_HOME&quot;] = &quot;本地路径&quot;</code>。该函数和模型加载里面的名字是相同的</li>
+<li><code>tokenizer.tokenize(text)</code>：获得分词后的词元token的列表</li>
+<li><code>encode</code>：文本转化为数字序列；<code>decode</code>：数字转回文本</li>
+<li><code>save_pretrained('本地路径')</code>：保存到本地</li>
+<li>实例化对象tokenizer参数：
+<ul>
+<li><code>return_tensors=''</code>：pt，pytorch tensor；tf，tensorflow的张量对象；np，numpy</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os<br>os.environ[<span class="hljs-string">&quot;HF_ENDPOINT&quot;</span>] = <span class="hljs-string">&quot;https://hf-mirror.com&quot;</span>     <span class="hljs-comment"># 使用镜像</span><br><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoTokenizer<br><br>tokenizer = AutoTokenizer.from_pretrained(<span class="hljs-string">&quot;bert-base-chinese&quot;</span>)<br>text = <span class="hljs-string">&quot;今天天气很差！&quot;</span><br>text_tokenized = tokenizer(text)<br><span class="hljs-built_in">print</span>(text_tokenized)<br><br><span class="hljs-comment"># 你也可以使用 tokenizer.encode_plus(text, add_special_tokens=True) 效果和上面的一样</span><br></code></pre></td></tr></table></figure>
+<p>首次会从官网下载分词器的配置文件。可以看到bert中文分词之后的结果是字典，<code>input_ids</code>字段就是token的编号</p>
+<p><img src="https://raw.githubusercontent.com/inferiorStudent/resource-CDN/main/llm/1.1-bert-tokenizer.png" alt=""></p>
+<h1 id="3-预训练流程">3 预训练流程</h1>
+<h2 id="3-1-模型构建">3.1 模型构建</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> AutoModelForCausalLM, AutoTokenizer, LlamaConfig, LlamaForCausalLM<br><span class="hljs-keyword">import</span> torch<br><br>model_path = <span class="hljs-string">&#x27;Meta-Llama-3.1-8B-Instruct&#x27;</span><br>tokenizer = AutoTokenizer.from_pretrained(model_path)<br>device = <span class="hljs-string">&#x27;cuda&#x27;</span> <span class="hljs-keyword">if</span> torch.cuda.is_available() <span class="hljs-keyword">else</span> <span class="hljs-string">&#x27;cpu&#x27;</span><br><br>model = AutoModelForCausalLM.from_pretrained(<br>    model_path,<br>    low_cpu_mem_usage=<span class="hljs-literal">True</span><br>).to(device)<br>optimizer = torch.optim.AdamW(model.parameters())<br><br>text = <span class="hljs-string">&quot;我在公司上班。&quot;</span><br><span class="hljs-built_in">input</span> = tokenizer(text, return_tensors=<span class="hljs-string">&#x27;pt&#x27;</span>)<br><span class="hljs-built_in">input</span> = &#123;k, x.to(device) <span class="hljs-keyword">for</span> k, v <span class="hljs-keyword">in</span> <span class="hljs-built_in">input</span>.items()&#125;<br><span class="hljs-built_in">input</span>[<span class="hljs-string">&#x27;labels&#x27;</span>] = <span class="hljs-built_in">input</span>[<span class="hljs-string">&#x27;input_ids&#x27;</span>].clone()<br>output = model(**<span class="hljs-built_in">input</span>)<br><br><span class="hljs-comment"># 由于传入了label，因此前向传播时自动计算loss</span><br>loss = output.loss<br>loss.backward()<br>optimizer.step()<br>optimizer.zero_grad()<br><br>model.save_pretrained(<span class="hljs-string">&#x27;output_dir&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<ul>
+<li>一般情况下，loss函数都是我们自己给定的，那么训练时内部loss是如何计算的？</li>
+</ul>
+<p>从头训练一个大模型，你也可以自定义模型的结构</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> LlamaConfig, LlamaForCausalLM<br><br>config = LlamaConfig()<br>config.num_hidden_layers = <span class="hljs-number">6</span><br>config.hidden_size = <span class="hljs-number">1024</span><br>config.intermediate_size = <span class="hljs-number">4096</span><br>config.num_key_value_heads = <span class="hljs-number">8</span><br><span class="hljs-comment"># 配置文件初始化模型结构</span><br>model = LlamaForCausalLM(config)<br></code></pre></td></tr></table></figure>
+<p>不过大概率cuda out of memory，需要<strong>量化加载</strong>、<strong>LoRA训练</strong>等减少显存占用的技术。如下采用4比特加载</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> BitsAndBytesConfig<br><span class="hljs-comment"># 4bit load</span><br>bnb_config = BitsAndBytesConfig(<br>    load_in_4bit=<span class="hljs-literal">True</span>,<br>    bnb_4bit_use_double_quant=<span class="hljs-literal">True</span>,<br>    bnb_4bit_quant_type=<span class="hljs-string">&quot;nf4&quot;</span>,<br>    bnb_4bit_compute_dtype=torch.bfloat16<br>)<br><br>model = AutoModelForCausalLM.from_pretrained(<br>    model_path,<br>    low_cpu_mem_usage=<span class="hljs-literal">True</span>,<br>    quantization_config=bnb_config<br>).to(device)<br></code></pre></td></tr></table></figure>
+<p>加上生成LoRA模型的配置。当然了，加上了LoRA就算不上是预训练了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> peft <span class="hljs-keyword">import</span> TaskType, LoraConfig, get_peft_model<br>peft_config = LoraConfig(<br>    r=<span class="hljs-number">8</span>,<br>    target_modules=[<br>        <span class="hljs-string">&quot;q_proj&quot;</span>,<br>        <span class="hljs-string">&quot;v_proj&quot;</span>,<br>        <span class="hljs-string">&quot;k_proj&quot;</span>,<br>        <span class="hljs-string">&quot;o_proj&quot;</span>,<br>        <span class="hljs-string">&quot;gate_proj&quot;</span>,<br>        <span class="hljs-string">&quot;down_proj&quot;</span>,<br>        <span class="hljs-string">&quot;up_proj&quot;</span><br>    ],<br>    task_type=TaskType.CASUAL_LM,<br>    lora_alpha=<span class="hljs-number">16</span>,<br>    lora_dropout=<span class="hljs-number">0.05</span><br>)<br>model = get_peft_model(model, peft_config)<br>model.print_trainable_parameters()<br>model.to(device)<br></code></pre></td></tr></table></figure>
+<p>此外，如果需要用到多GPU训练，只需要在from_pretrained中添加：<code>device_map=&#123;&quot;&quot;: PartialState().process_index&#125;</code>，导包：<code>from accelerate import PartialState</code>。</p>
+<h2 id="3-2-数据处理">3.2 数据处理</h2>
+<p>配置好模型之后，我们需要准备好txt文本数据。</p>
+<ul>
+<li>数据清洗</li>
+</ul>
+<p>在文本中加上特殊的token，即tokenizer的<code>EOS</code>（end of sequence）和<code>BOS</code>。比如LoRA中：开始的地方加上<code>&lt;|begin_of_text|&gt;</code>，结束的地方加上<code>&lt;|eot_id|&gt;</code>。不同的模型加的特殊的token自然不同，需要查看配置文件</p>
+<ul>
+<li>加载数据</li>
+</ul>
+<p>首先将一些配置放在training_args里面</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> dataclasses <span class="hljs-keyword">import</span> dataclass, field<br><br><span class="hljs-meta">@dataclass</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">CustomArguments</span>(transformers.TrainingArguments):<br>    lora_r: <span class="hljs-built_in">int</span> = field(default=<span class="hljs-number">8</span>)<br>    num_proc: <span class="hljs-built_in">int</span> = field(default=<span class="hljs-number">1</span>)			<span class="hljs-comment"># 数据处理时的并行进程数</span><br>    max_seq_length: <span class="hljs-built_in">int</span> = field(default=<span class="hljs-number">32</span>)<br>    eval_strategy: <span class="hljs-built_in">str</span> = field(default=<span class="hljs-string">&quot;steps&quot;</span>)	<span class="hljs-comment"># 不想验证则设置为&quot;no&quot;</span><br>    eval_steps: <span class="hljs-built_in">int</span> = field(default=<span class="hljs-number">100</span>)		<span class="hljs-comment"># 多少步验证一次</span><br>    seed: <span class="hljs-built_in">int</span> = field(default=<span class="hljs-number">0</span>)<br>    optim: <span class="hljs-built_in">str</span> = field(default=<span class="hljs-string">&quot;adamw_torch&quot;</span>)<br>    num_train_epochs: <span class="hljs-built_in">int</span> = field(default=<span class="hljs-number">1</span>)<br>    per_device_train_batch_size: <span class="hljs-built_in">int</span> = field(default=<span class="hljs-number">1</span>)<br>    <br>    learning_rate: <span class="hljs-built_in">float</span> = field(default=<span class="hljs-number">5e-5</span>)<br>    weight_decay: <span class="hljs-built_in">float</span> = field(default=<span class="hljs-number">0</span>)<br>    warmup_steps: <span class="hljs-built_in">int</span> = field(default=<span class="hljs-number">0</span>)<br>    lr_scheduler_type: <span class="hljs-built_in">str</span> = field(default=<span class="hljs-string">&quot;linear&quot;</span>)<br>    gradient_checkpointing: <span class="hljs-built_in">bool</span> = field(default=<span class="hljs-literal">False</span>)<br>    bf16: <span class="hljs-built_in">bool</span> = field(default=<span class="hljs-literal">True</span>)<br>    gradient_accumulation_steps: <span class="hljs-built_in">int</span> = field(default=<span class="hljs-number">1</span>)<br>    <br>    logging_steps: <span class="hljs-built_in">int</span> = field(default=<span class="hljs-number">3</span>)<br>    save_strategy: <span class="hljs-built_in">str</span> = field(default=<span class="hljs-string">&quot;steps&quot;</span>)<br>    save_steps: <span class="hljs-built_in">int</span> = field(default=<span class="hljs-number">3</span>)<br>    save_total_limit: <span class="hljs-built_in">int</span> = field(default=<span class="hljs-number">2</span>)<br><br>parser = transformers.HfArgumentParser(CustomArguments)<br>training_args = parser.parse_args_into_dataclasses()<br></code></pre></td></tr></table></figure>
+<p>然后再进行数据的处理</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> datasets <span class="hljs-keyword">import</span> load_dataset<br><span class="hljs-keyword">from</span> itertools <span class="hljs-keyword">import</span> chain<br><span class="hljs-keyword">import</span> transformers<br><br><span class="hljs-comment"># 加载dir下的所有txt文件</span><br>train_dataset = load_dataset(<span class="hljs-string">&quot;text&quot;</span>, data_dir=<span class="hljs-string">&quot;xxx&quot;</span>, split=<span class="hljs-string">&quot;train&quot;</span>)<br>eval_dataset = load_dataset(<span class="hljs-string">&quot;text&quot;</span>, data_dir=<span class="hljs-string">&quot;xxx&quot;</span>, split=<span class="hljs-string">&quot;train&quot;</span>)<br><br><span class="hljs-comment"># 定义分词函数：对每个传入的文本样本分词</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">tokenization</span>(<span class="hljs-params">example</span>):<br>    <span class="hljs-keyword">return</span> tokenizer(example[<span class="hljs-string">&quot;text&quot;</span>])<br><br><span class="hljs-comment"># 上下文管理器保证在分布式训练时 只有在主进程中进行数据处理 而不是每个进程中都处理（重复）</span><br><span class="hljs-keyword">with</span> training_args.main_process_first(desc=<span class="hljs-string">&quot;dataset map tokenization&quot;</span>):<br>    train_dataset = train_dataset.<span class="hljs-built_in">map</span>(tokenization, remove_colunms=[<span class="hljs-string">&quot;text&quot;</span>], num_proc=training_args.num_proc)<br>    eval_dataset = eval_dataset.<span class="hljs-built_in">map</span>(tokenization, remove_colunms=[<span class="hljs-string">&quot;text&quot;</span>], num_proc=training_args.num_proc)<br>    <br><span class="hljs-keyword">def</span> <span class="hljs-title function_">group_texts</span>(<span class="hljs-params">examples</span>):<br>    <span class="hljs-comment"># 合并所有的文本</span><br>    concatenated_examples = &#123;k: <span class="hljs-built_in">list</span>(chain(*examples[k])) <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> examples.keys()&#125;<br>    total_length = <span class="hljs-built_in">len</span>(concatenated_examples[<span class="hljs-built_in">list</span>(examples.keys())[<span class="hljs-number">0</span>]])<br>    <br>    total_length = (total_lenght // training_args.max_seq_length) * training_args.max_seq_length<br>    <br>    result = &#123;<br>        k: [t[i: i + training_args.max_seq_length] <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, total_length, training_args.max_seq_length)] <span class="hljs-keyword">for</span> k, t <span class="hljs-keyword">in</span> concatenated_examples.items()<br>    &#125;<br>    <span class="hljs-comment"># 增加一个label列</span><br>    <span class="hljs-comment">##### Llama在计算loss时会处理label和input的关系（错位）</span><br>    result[<span class="hljs-string">&quot;labels&quot;</span>] = result[<span class="hljs-string">&quot;input_ids&quot;</span>].copy()<br>    <span class="hljs-keyword">return</span> result<br><br><span class="hljs-keyword">with</span> training_args.main_process_first(desc=<span class="hljs-string">&quot;dataset map tokenization&quot;</span>):<br>    train_dataset = train_dataset.<span class="hljs-built_in">map</span>(group_texts, num_proc=training_args.num_proc, batched=<span class="hljs-literal">True</span>)<br>    eval_dataset = eval_dataset.<span class="hljs-built_in">map</span>(group_texts, num_proc=training_args.num_proc, batched=<span class="hljs-literal">True</span>)<br></code></pre></td></tr></table></figure>
+<h2 id="3-3-训练">3.3 训练</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> transformers <span class="hljs-keyword">import</span> Trainer<br><span class="hljs-keyword">import</span> warnings<br><br>warnings.filterwarnings(<span class="hljs-string">&quot;ignore&quot;</span>)<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    trainer = Trainer(<br>        model=model,<br>        args=training_args,<br>        train_dataset=train_dataset,<br>        eval_dataset=eval_dataset<br>    )<br>    trainer.train()<br>    trainer.save_model(<span class="hljs-string">&quot;路径&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+    </div>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const codeBlocks = document.querySelectorAll('figure.highlight');
+    
+        codeBlocks.forEach(block => {
+            // 1. 获取语言标签
+            const lang = block.classList.contains('highlight') ? 
+                         block.classList[1] : '';
+    
+            // 2. 创建一个容器来包裹语言标签和复制按钮
+            const toolbar = document.createElement('div');
+            toolbar.className = 'highlight-toolbar';
+    
+            // 3. 创建语言标签
+            if (lang) {
+                const langLabel = document.createElement('span');
+                langLabel.className = 'highlight-lang';
+                langLabel.textContent = lang.toUpperCase();
+                toolbar.appendChild(langLabel);
+            }
+    
+            // 4. 创建复制按钮
+            const copyButton = document.createElement('button');
+            copyButton.className = 'highlight-copy-btn';
+            copyButton.textContent = '复制';
+            
+            copyButton.addEventListener('click', () => {
+                // 优先选择 .code 元素（针对有行号的表格），如果没有则选择 pre 元素
+                const codeElement = block.querySelector('.code') || block.querySelector('pre');
+                if (codeElement) {
+                    navigator.clipboard.writeText(codeElement.textContent).then(() => {
+                        copyButton.textContent = '已复制!';
+                        setTimeout(() => {
+                            copyButton.textContent = '复制';
+                        }, 2000);
+                    }).catch(err => {
+                        console.error('复制失败: ', err);
+                    });
+                }
+            });
+            toolbar.appendChild(copyButton);
+    
+            // 5. 将工具栏插入到代码块中
+            block.appendChild(toolbar);
+        });
+    });
+</script>
+  </article>
+</div>
+
+    </div>
+    
+<script src="/js/script.js"></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>
