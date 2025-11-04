@@ -152,6 +152,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const postBody = document.querySelector('.post-body');
     if (!postBody) return;
 
+    // 定义图标映射
+    const iconMap = {
+        note: 'fa-solid fa-lightbulb',
+        warning: 'fa-solid fa-triangle-exclamation',
+        danger: 'fa-solid fa-circle-exclamation',
+        info: 'fa-solid fa-circle-info',
+        // failure: 'fa-solid fa-xmark-circle',
+        // bug: 'fa-solid fa-bug',
+        // abstract: 'fa-solid fa-clipboard-list'
+    };
+
     // 查找所有以 > [! 开头的引用块
     const blockquotes = postBody.querySelectorAll('blockquote');
 
@@ -160,18 +171,46 @@ document.addEventListener('DOMContentLoaded', () => {
         if (firstParagraph) {
             const content = firstParagraph.textContent.trim();
             // 使用正则表达式匹配 [!...] 语法
-            const match = content.match(/^\[!(NOTE|WARNING|DANGER|INFO)\]/);
-            
+            const match = content.match(/^\[!(NOTE|WARNING|DANGER|INFO)\]/i); // 忽略大小写
+
             if (match) {
-                // 找到匹配的类型，例如 "NOTE"
-                const type = match[1].toLowerCase();
+                // 找到匹配的类型，例如 "note"
+                const fullMatch = match[0]; // [!NOTE]
+                const type = match[1].toLowerCase(); // "note"
+                const title = match[1].charAt(0).toUpperCase() + match[1].slice(1).toLowerCase(); // "Note"
+                const iconClass = iconMap[type] || 'fa-solid fa-info-circle'; // 获取图标，或使用默认
+
                 // 在 blockquote 上添加 data 属性
                 quote.setAttribute('data-alert-type', type);
-                // 移除 Markdown 标记文本，使其不显示在页面上
-                firstParagraph.textContent = firstParagraph.textContent.replace(match[0], '').trim();
-                // 如果移除后p标签为空，移除p标签本身
-                if (!firstParagraph.textContent) {
-                    firstParagraph.remove();
+
+                // --- 创建新结构 ---
+                
+                // 1. 创建标题栏
+                const titleDiv = document.createElement('div');
+                titleDiv.className = 'alert-title';
+                titleDiv.innerHTML = `<i class="${iconClass}"></i> ${title}`;
+
+                // 2. 创建内容包裹器
+                const contentDiv = document.createElement('div');
+                contentDiv.className = 'alert-content';
+
+                // 3. 将 blockquote 的所有现有内容移动到 contentDiv 中
+                while (quote.firstChild) {
+                    contentDiv.appendChild(quote.firstChild);
+                }
+
+                // 4. 将新创建的 titleDiv 和 contentDiv 添加回 blockquote
+                quote.appendChild(titleDiv);
+                quote.appendChild(contentDiv);
+
+                // 5. 清理 contentDiv 中的第一个段落 (移除 [!NOTE] 标记)
+                const firstP = contentDiv.querySelector('p:first-of-type');
+                if (firstP && firstP.textContent.trim().startsWith(fullMatch)) {
+                    firstP.textContent = firstP.textContent.replace(fullMatch, '').trim();
+                    // 如果移除后p标签为空，移除p标签本身
+                    if (!firstP.textContent) {
+                        firstP.remove();
+                    }
                 }
             }
         }

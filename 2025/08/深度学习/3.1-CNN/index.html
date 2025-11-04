@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3.1 CNN | Hexo</title>
+    <title>3.1 卷积神经网络原理 | Hexo</title>
     
 <link rel="stylesheet" href="/css/style.css">
 
@@ -20,18 +20,22 @@
 <body>
     <div class="container">
         <header class="post-navbar">
-    <div class="nav-left">
-        <div class="nav-item search-trigger">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M21.71 20.29l-3.68-3.68A8.963 8.963 0 0 0 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.49 0 4.74-1.01 6.32-2.67l3.68 3.68a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.42ZM4 11a7 7 0 1 1 14 0a7 7 0 0 1-14 0Z"/></svg>
-            <span style="font-size: small;">搜索...</span>
-            <span class="search-shortcut" style="font-size: small;">Ctrl K</span>
-        </div>
-    </div>
-    <div style="width: 10px;"></div>
+    <a href="/" class="nav-left">
+        <img src="/img/avatar.jpg" alt="Avatar" class="nav-avatar">
+        <span class="nav-title">上下求索</span>
+    </a>
+
     <div class="nav-right">
+        <div class="nav-item search-trigger">
+            <img src="/img/icons/search.svg" alt="Search" class="search-icon">
+            <span>请输入关键词搜索...</span>
+        </div>
+
+        <a href="/notes/" class="nav-link">笔记导航</a>
+
         <div class="nav-item theme-switcher">
-            <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12a4 4 0 1 0 8 0a4 4 0 1 0-8 0m-5 0h1m8-7V4m-5.6 1.4L4.8 6.8M16 17.2l1.4 1.4M20 12h1m-6-5.2l1.4-1.4M12 21v-1"/></svg>
-            <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3a6 6 0 0 0 9 9a9 9 0 1 1-9-9Z"/></svg>
+            <img src="/img/icons/sun.svg" alt="Sun" class="sun-icon">
+            <img src="/img/icons/moon.svg" alt="Moon" class="moon-icon">
         </div>
     </div>
 </header>
@@ -49,10 +53,10 @@
       
       <nav>
           <div class="sidebar-top">
-              <a href="/" class="back-to-home-link" style="display: flex; align-items: center">
+              <!-- <a href="/" class="back-to-home-link" style="display: flex; align-items: center">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 18l-6-6l6-6"/></svg>
                   <span>返回首页</span>
-              </a>
+              </a> -->
               <h3>深度学习</h3>
           </div>
           <ul>
@@ -127,7 +131,7 @@
                               <ul>
                                   
                                       <li class="sidebar-item active">
-                                          <a href="/2025/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/3.1-CNN/">3.1 CNN</a>
+                                          <a href="/2025/08/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/3.1-CNN/">3.1 卷积神经网络原理</a>
                                       </li>
                                   
                                       <li class="sidebar-item ">
@@ -135,7 +139,7 @@
                                       </li>
                                   
                                       <li class="sidebar-item ">
-                                          <a href="/2025/10/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/3.3-%E5%85%B6%E4%BB%96%E7%BB%8F%E5%85%B8%E5%8D%B7%E7%A7%AF%E7%BD%91%E7%BB%9C/">3.3 经典卷积神经网络</a>
+                                          <a href="/2025/10/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/3.3-%E5%85%B6%E4%BB%96%E7%BB%8F%E5%85%B8%E5%8D%B7%E7%A7%AF%E7%BD%91%E7%BB%9C/">3.3 经典CNN模型</a>
                                       </li>
                                   
                                       <li class="sidebar-item ">
@@ -161,7 +165,11 @@
                               <ul>
                                   
                                       <li class="sidebar-item ">
-                                          <a href="/2025/10/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/4.1-RNN/">4.1 RNN</a>
+                                          <a href="/2025/10/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/4.1-%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E4%BB%BB%E5%8A%A1/">4.1 自然语言处理发展</a>
+                                      </li>
+                                  
+                                      <li class="sidebar-item ">
+                                          <a href="/2025/10/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/4.3-RNN/">4.1 RNN</a>
                                       </li>
                                   
                               </ul>
@@ -187,7 +195,7 @@
       </div>
     
 
-    <h1>3.1 CNN</h1>
+    <h1>3.1 卷积神经网络原理</h1>
     <!-- <div class="post-meta">
       
         <time class="post-date-tag" datetime="2025-08-28T06:51:39.902Z">
@@ -201,22 +209,27 @@
 <div style="display: flex; justify-content: center;"><img src="https://raw.gitmirror.com/inferiorStudent/resource-CDN/main/dl/3.3-Convolution.svg"></div>
 <h1 id="1-基本原理">1 基本原理</h1>
 <h2 id="1-1-卷积过程">1.1 卷积过程</h2>
-<p>卷积神经网络，Convolution Neural Network。实际上这里的卷积和数学上的卷积根本没什么关联。</p>
+<p>卷积神经网络，Convolution Neural Network（CNN）。实际上这里的卷积和数学上的卷积根本没什么关联。</p>
 <p>如图所示，输入3通道的图片（彩色），该图片表示为C×H×W的张量（按PyTorch中的顺序来），卷积操作如下：</p>
 <ul>
-<li>每个通道都配备一个Filter（Kernel），如图例4×4图像，3×3的过滤器（<strong>卷积核</strong>）。过滤器的中心对准1，以1为中心的3×3大小的图像区域为单位，Filter的每个位置的权重和对应图像位置的值相乘并相加得到一个值。
+<li>每个通道都配备一个Filter（也叫做Kernel）。如图例4×4图像，3×3的过滤器（<strong>卷积核</strong>）。过滤器的中心对准1，以1为中心的3×3大小的图像区域为单位，Filter的每个位置的权重和对应图像位置的值相乘并相加得到一个值。
 <ul>
-<li>因此Filter的大小是奇数×奇数，奇数才有中心点</li>
+<li>Filter的大小是奇数×奇数，因为奇数大小的正方形才有唯一中心点</li>
 </ul>
 </li>
 <li>每个通道1这个位置如上步骤操作都得到一个值，将这些1号位卷积得到的值相加，得到最终<strong>特征图</strong>的1号位值</li>
 <li>假设<strong>步长</strong>为1，那么2、3、4号位的值如第二步骤得到。一般来说步长是1.</li>
 <li>上面的一组Filter得到一张特征图，也就是通道数为1。有几组这样的Filter，输出结果就有多少个通道数</li>
-<li>每一组Filter有一个可选的bias（PyTorch默认有）</li>
+<li>每一组Filter有一个可选的bias（PyTorch默认有，如果不需要则可以设置<code>nn.Conv2d(bias=False)</code>）</li>
 </ul>
 <h2 id="1-2-基本概念">1.2 基本概念</h2>
 <ul>
-<li><strong>感受野</strong>：第一层的3×3大小的卷积核得到一个特征值，这个特征值就是第二层的“输入图片”中的一个像素值。假设步长为1，那么第二层的3×3卷积核得到第三层的一个像素值，第三层的一个像素值就有第一层5×5的视野（第三层的一个值由第一层5×5的值计算得来）</li>
+<li><strong>感受野</strong>：第一层的3×3大小的卷积核得到一个特征值，这个特征值就是第二层的“输入图片”中的一个像素值。假设步长为1，那么第二层的3×3卷积核得到第三层的一个像素值，第三层的一个像素值就有第一层5×5的视野（第三层的一个值由第一层5×5的值计算得来）。那么两层的3×3的卷积操作可以等价一层的5×5的卷积操作。</li>
+</ul>
+<div style="display: flex; justify-content: center;">
+  <img src="https://raw.gitmirror.com/inferiorStudent/resource-CDN/main/dl/3.1-receptive-field.svg">
+</div>
+<ul>
 <li><strong>padding</strong>：每次经过卷积操作，得到的下一层输入大小都会少一圈值。为了不让下一层的大小变小，上一层的输入应该填充一圈（可以填充为0，也可以根据边缘值填充），如果是3×3的卷积核，填充一圈即可。下图演示的是3×3的卷积核，0填充，步长（stride）为1的卷积过程，右侧的特征图。</li>
 </ul>
 <div style="display: flex; justify-content: center;"><img src="https://raw.gitmirror.com/inferiorStudent/resource-CDN/main/dl/3.3-conv-anime.gif"></div>
