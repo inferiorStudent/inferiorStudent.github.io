@@ -158,6 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
         warning: 'fa-solid fa-triangle-exclamation',
         danger: 'fa-solid fa-circle-exclamation',
         info: 'fa-solid fa-circle-info',
+        perplex: 'fa-solid fa-bug',
         // failure: 'fa-solid fa-xmark-circle',
         // bug: 'fa-solid fa-bug',
         // abstract: 'fa-solid fa-clipboard-list'
@@ -171,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (firstParagraph) {
             const content = firstParagraph.textContent.trim();
             // 使用正则表达式匹配 [!...] 语法
-            const match = content.match(/^\[!(NOTE|WARNING|DANGER|INFO)\]/i); // 忽略大小写
+            const match = content.match(/^\[!(NOTE|WARNING|DANGER|INFO|PERPLEX)\]/i); // 忽略大小写
 
             if (match) {
                 // 找到匹配的类型，例如 "note"
